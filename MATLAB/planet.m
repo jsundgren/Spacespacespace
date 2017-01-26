@@ -8,6 +8,12 @@ classdef planet
     end
     
     methods
+        function obj=planet(m, v, p)
+            
+            obj.mass = m;
+            obj.velocity = v;
+            obj.position = p;
+        end
     end
     
 end
