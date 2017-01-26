@@ -7,12 +7,15 @@ function init() {
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
+
+    /****** SUN *********/
 			var geometry = new THREE.SphereGeometry( 2, 8, 6 );
 			var material = new THREE.MeshPhongMaterial( {color: 0x2194ce} );
 			var sphere = new THREE.Mesh( geometry, material );
 			sphere.wireframe = true;
 			scene.add( sphere );
 
+    /****** LIGHT SOURCES *********/
 			var spotLight       = new THREE.SpotLight( 0xffffff );
 			spotLight.position.set( 10, 10, 10 );
 			scene.add( spotLight );
@@ -22,6 +25,7 @@ function init() {
 
 			camera.position.z = 30;
 
+    /****** ORBIT CONTROLS *********/
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 			controls.enableDamping = true;
