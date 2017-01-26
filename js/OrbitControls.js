@@ -992,3 +992,7 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 	}
 
 } );
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
