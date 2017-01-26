@@ -992,4 +992,4 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 	}
 
 } );
-Contact GitHub 
+
