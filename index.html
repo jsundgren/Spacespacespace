@@ -16,10 +16,11 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			var material = new THREE.MeshPhongMaterial( { color: 0x2194ce } );
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+			var geometry = new THREE.SphereGeometry( 1, 8, 6 );
+			var material = new THREE.MeshPhongMaterial( {color: 0x2194ce} );
+			var sphere = new THREE.Mesh( geometry, material );
+			sphere.wireframe = true;
+			scene.add( sphere );
 
 			var spotLight       = new THREE.SpotLight( 0xffffff );
 			spotLight.position.set( 10, 10, 10 );
@@ -34,20 +35,19 @@
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 			controls.enableDamping = true;
-			controls.dampingFactor = 0.9;
+			controls.dampingFactor = 0.25;
 			controls.enableZoom = true;
 
-			//Zoomar man ut mer än 82 så missar ljuset globen
-			controls.minDistance = 30;
+			controls.minDistance = 5;
 			controls.maxDistance = 60;
 			//
 
 			var render = function () {
 				requestAnimationFrame( render );
-				controls.update();
+				//controls.update();
 
-				cube.rotation.x += 0.0049;
-				cube.rotation.y += 0.005;
+				sphere.rotation.x += 0.0049;
+				sphere.rotation.y += 0.005;
 
 				renderer.render(scene, camera);
 			};
