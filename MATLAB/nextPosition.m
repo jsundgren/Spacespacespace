@@ -1,7 +1,7 @@
-function [ out ] = nextPosition( in )
+function [ out ] = nextPosition( in, steplength )
 
 %steplength
-h = 0.5;
+h = steplength;
 
 out = in; 
 
@@ -10,6 +10,7 @@ out = in;
         
         out(i).velocity = Euler(in(i).velocity, in(i).force/in(i).mass, h);
         out(i).position = Euler(in(i).position, out(i).velocity, h);
+        
     end
 
 

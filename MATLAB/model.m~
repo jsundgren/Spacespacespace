@@ -9,33 +9,38 @@
 % test 1
 
 %clear, clc
-u=10^8;
+%u=10^8;
 
-planet1 = planet(3*u, [0 0 0], [0 0 0], [0 0 0]);
-planet2 = planet(4*u, [0 0 0], [1 2 0], [0 0 0]);
-planet3 = planet(5*u, [0 0 0], [2 0 0], [0 0 0]);
-planet4 = planet(6*u, [0 0 0], [2 0 1], [0 0 0]);
+%planet1 = planet(20*u, [0 0 0], [0 0 0], [0 0 0]);
+%planet2 = planet(3*u, [0 0 0], [1 2 0], [0 0 0]);
+%planet3 = planet(3*u, [0 0 0], [2 0 0], [0 0 0]);
+%planet4 = planet(3*u, [0 0 0], [2 0 1], [0 0 0]);
 
-system = [planet1 planet2 planet3 planet4];
+%system = [planet1 planet2 planet3 planet4];
 
+earth = planet(5.97237*10^24, [0 0 0], [0 0 0], [0 0 0]);
+moon = planet(7.342*10^22 , [0 1022*10^3 0], [384400 0 0], [0 0 0]);
+
+system = [earth, moon];
 
 newSystem = sumForceSystem( system );
 
-time=20;
+time=15;
+steplength = 0.05;
 
 
 for j=1:time
     for i = 1:length(system)
         scatter3(system(i).position(1), system(i).position(2), system(i).position(3));
-        system(i).position
         hold on
-        axis([-5 5 -5 5 -5 5]);
-
     end
+    legend('earth', 'moon');
+    axis([-5 5 -5 5 -5 5].*(2*10^5));
+    
     system = sumForceSystem(system);
-    system = nextPosition(system);
+    system = nextPosition(system, steplength);
     hold off
-    pause;
+    pause(0.1);
+    system(2).force 
 end
-
 

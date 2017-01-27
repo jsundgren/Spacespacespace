@@ -11,9 +11,14 @@ for i = 1:length(in)-1
         
         out(i).force = out(i).force + calcForce( out(i), in(n) );
         out(n).force = out(n).force + calcForce( in(n), out(i) );
+        
+
 
     end
 end
+
+        ut = out(i).force
+        ut2 = out(n).force
 
 toc;
 
