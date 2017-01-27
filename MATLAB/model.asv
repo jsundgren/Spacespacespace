@@ -8,7 +8,7 @@
 %% Test
 % test 1
 
-clear, clc
+%clear, clc
 
 do = 1;
 a = do*2;
@@ -27,23 +27,22 @@ steplength = 15000;
 for j=1:time
     
     for i = 1:length(system)
-        
         scatter3(system(i).position(1), system(i).position(2), system(i).position(3));
-        vectarrow(system(i).position, system(i).position + system(i).force.*u);
         hold on
     end
     
     legend('Terra', 'Lunar');
     axis([-a a -a a -a a]);
     
+
+    
     system = sumForceSystem(system);
     system = nextPosition(system, steplength);
-
     hold off
     
     %[system(1).position(1) system(1).position(2) system(1).position(3)]
     %[system(1).velocity(1) system(1).velocity(2) system(1).velocity(3)]
-    %[system(1).force(1) system(1).force(2) system(1).force(3)]
+    [system(1).force(1) system(1).force(2) system(1).force(3)]
     
     pause(0.1);
 end
