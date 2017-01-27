@@ -1,9 +1,9 @@
 %%
 % Konstanter osv.
 
-JordRadie = 6371*1000;
-JordMassaa = 5,972*10^24;
-G = 6,67408*10^-11;
+%JordRadie = 6371*1000;
+%JordMassaa = 5,972*10^24;
+%G = 6,67408*10^-11;
 
 %% Test
 % test 1
@@ -17,11 +17,10 @@ planet4 = planet(6, [0 0 0], [2 0 1], [0 0 0]);
 
 system = [planet1 planet2 planet3 planet4];
 
-newSystem = sumForceSystem2( system );
+newSystem = sumForceSystem( system );
 
-
-
-
-
-
+for i = 1:length(system)
+    scatter3(system(i).position(1), system(i).position(2), system(i).position(3));
+    hold on
+end
 
