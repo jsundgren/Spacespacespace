@@ -10,9 +10,8 @@ function init() {
 
     /****** SUN *********/
 			var geometry = new THREE.SphereGeometry( 2, 8, 6 );
-			var material = new THREE.MeshPhongMaterial( {color: 0x2194ce} );
+			var material = new THREE.MeshBasicMaterial( {color: 0x2194ce} );
 			var sphere = new THREE.Mesh( geometry, material );
-			sphere.wireframe = true;
 			scene.add( sphere );
 
     /****** LIGHT SOURCES *********/
