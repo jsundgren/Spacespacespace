@@ -9,19 +9,19 @@
 % test 1
 
 %clear, clc
-%u=10^24;
-%planet1 = planet(3*u, [0 0 0], [0 0 0], [0 0 0]);
-%planet2 = planet(4*u, [0 0 0], [1 2 0], [0 0 0]);
-%planet3 = planet(5*u, [0 0 0], [2 0 0], [0 0 0]);
-%planet4 = planet(6*u, [0 0 0], [2 0 1], [0 0 0]);
-%system = [planet1 planet2 planet3 planet4];
+u=10^8;
 
+planet1 = planet(20*u, [0 0 0], [0 0 0], [0 0 0]);
+planet2 = planet(3*u, [0 0 0], [1 2 0], [0 0 0]);
+planet3 = planet(3*u, [0 0 0], [2 0 0], [0 0 0]);
+planet4 = planet(3*u, [0 0 0], [2 0 1], [0 0 0]);
 
-mercury = planet()
+system = [planet1 planet2 planet3 planet4];
+
 
 newSystem = sumForceSystem( system );
 
-time=10;
+time=20;
 
 
 for j=1:time
@@ -29,7 +29,7 @@ for j=1:time
         scatter3(system(i).position(1), system(i).position(2), system(i).position(3));
         system(i).position
         hold on
-        %axis([-1 3 -1 3 -1 3]);
+        axis([-5 5 -5 5 -5 5]);
 
     end
     system = sumForceSystem(system);
