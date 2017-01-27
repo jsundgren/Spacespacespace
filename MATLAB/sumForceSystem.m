@@ -1,12 +1,15 @@
 function [ out ] = sumForceSystem( in )
 % planets total force
 %
+
 out = in;
+
+for i = 1:length(in)
+	out(i).force = [0 0 0];
+end
 
 for i = 1:length(in)-1
     
-    out(i).force = [0 0 0];
-    out(i+1).force = [0 0 0];
     
     for n = i+1:length(in)
         

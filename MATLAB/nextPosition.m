@@ -1,7 +1,4 @@
-function [ out ] = nextPosition( in, steplength )
-
-%steplength
-h = steplength;
+function [ out ] = nextPosition( in, h )
 
 out = in; 
 
