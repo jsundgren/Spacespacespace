@@ -1,20 +1,13 @@
-%%
-% Konstanter osv.
-
-%JordRadie = 6371*1000;
-%JordMassaa = 5,972*10^24;
-%G = 6,67408*10^-11;
-
 %% Test
 % test 1
 
 clear, clc
 
 do = 1;
-a = do*3;
+a = do*2;
 v = 0.000005;
 
-u = 10^4.5;
+u = 10^9;
 
 terra = planet(1.1, [0 v 0], [do 0 0], [0 0 0]);
 lunar = planet(1.2, [-v 0 0], [0 do 0], [0 0 0]);
@@ -23,19 +16,21 @@ kerbal = planet(1.3, [v 0 0], [0 -do 0], [0 0 0]);
 
 system = [terra lunar smoon kerbal];
 
-time = 50;
-steplength = 10000;
-
+time = 80;
+steplength = 8000;
 
 for j=1:time
     
     system = sumForceSystem(system);
+    com = COM( system );
     
     for i = 1:length(system)
         
         scatter3(system(i).position(1), system(i).position(2), system(i).position(3));
         hold on
-        vectarrow(system(i).position, system(i).position + system(i).velocity.*u);
+        scatter3(com(1), com(2), com(3), 'x');
+        hold on
+        vectarrow(system(i).position, system(i).position + system(i).force.*u);
         hold on
     end
    
