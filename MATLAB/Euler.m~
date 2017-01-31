@@ -1,6 +1,0 @@
-function [ out ] = Euler( in, func, stepLength )
-
-out = in + acceleration * stepLength; 
-
-end
-
