@@ -1,10 +1,13 @@
 function init() {
+	/****** VARIABLES *********/
+
+
 	/****** CREATE SCENE AND CAMERA *********/
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			camera.position.set(0, 0, -40);
 
-			camera.position.z = 30;*/
+
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
@@ -29,7 +32,6 @@ function init() {
     /****** SUN *********/
 			var geometry = new THREE.IcosahedronGeometry(5, 1)
 
-			var material = new THREE.MeshBasicMaterial( {color: Math.random()*0xffffff} );
 			var material = new THREE.MeshPhongMaterial( {color: Math.random()*0xffffff} );
             material.shading = THREE.FlatShading;
 
@@ -54,11 +56,12 @@ function init() {
 			var materialRing = new THREE.MeshBasicMaterial( { color: colorRing, transparent: true, opacity: 0.6, side: THREE.DoubleSide} );
 			materialRing.side = THREE.DoubleSide;
 			var rings = new THREE.Mesh( geometryRing, materialRing );
-			planet.add(rings);
+			rings.rotateX(3.14/2.5);
+			scene.add(rings);
 			}
 
-			addRing(3, 3.1, sphere, 0x009999);
-			addRing(3.5, 4, sphere, 0x009999);
+			addRing(6, 6.8, sphere, Math.random()*0xffffff);
+			addRing(7.5, 8.7, sphere, Math.random()*0xffffff);
 
 
 
