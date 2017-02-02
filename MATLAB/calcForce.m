@@ -9,7 +9,10 @@ fY = p2.position(2) - p1.position(2);
 fZ = p2.position(3) - p1.position(3);
 
 d = sqrt( fX*fX + fY*fY + fZ*fZ );
-
+epsi = 2.22e-1;
+if(d<epsi)
+    d = epsi;
+end
 nfX = fX / d;
 nfY = fY / d;
 nfZ = fZ / d;

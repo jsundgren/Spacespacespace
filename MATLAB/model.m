@@ -3,21 +3,22 @@
 
 clear, clc
 
-do = 1;
+do = 100;
 a = do*2;
-v = 0.000005;
+v = 0.0005;
 
 u = 10^9;
+sun = planet(333000, [0 0 0], [0 0 0], [0 0 0]);
+terra = planet(1, [0 v 0], [do 0 0], [0 0 0]);
+lunar = planet(1/6, [0 v 0], [do+0.257 0 0], [0 0 0]);
+%lunar = planet(1.3, [-v 0 0], [0 do 0], [0 0 0]);
+%smoon = planet(1.3, [0 -v 0], [-do 0 0], [0 0 0]);
+%kerbal = planet(1.3, [v 0 0], [0 -do 0], [0 0 0]);
 
-terra = planet(1.1, [0 v 0], [do 0 0], [0 0 0]);
-lunar = planet(1.2, [-v 0 0], [0 do 0], [0 0 0]);
-smoon = planet(1.3, [0 -v 0], [-do 0 0], [0 0 0]);
-kerbal = planet(1.3, [v 0 0], [0 -do 0], [0 0 0]);
 
+system = [terra sun lunar];
 
-system = [terra lunar smoon kerbal];
-
-time = 80;
+time = 880;
 steplength = 8000;
 
 
@@ -46,7 +47,7 @@ for j=1:time
     %[system(1).velocity(1) system(1).velocity(2) system(1).velocity(3)]
     %[system(1).force(1) system(1).force(2) system(1).force(3)]
     
-    pause(0.02);
+    pause(0.01);
 
 end
 
