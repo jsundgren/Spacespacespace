@@ -9,8 +9,8 @@ v = 0.000005;
 
 u = 10^9;
 
-terra = planet(1.1, [0 v 0], [do 0 0], [0 0 0]);
-lunar = planet(1.2, [-v 0 0], [0 do 0], [0 0 0]);
+terra = planet(1.3, [0 v 0], [do 0 0], [0 0 0]);
+lunar = planet(1.3, [-v 0 0], [0 do 0], [0 0 0]);
 smoon = planet(1.3, [0 -v 0], [-do 0 0], [0 0 0]);
 kerbal = planet(1.3, [v 0 0], [0 -do 0], [0 0 0]);
 
