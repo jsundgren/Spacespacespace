@@ -10,9 +10,11 @@ function init() {
 
     /****** SUN *********/
 			var geometry = new THREE.IcosahedronGeometry(5, 1)
-			var material = new THREE.MeshBasicMaterial( {color: 0x2194ce} );
-			var material = new THREE.MeshPhongMaterial( {color: 0x2194ce} );
+
+			var material = new THREE.MeshBasicMaterial( {color: Math.random()*0xffffff} );
+			var material = new THREE.MeshPhongMaterial( {color: Math.random()*0xffffff} );
             material.shading = THREE.FlatShading;
+
 			var sphere = new THREE.Mesh( geometry, material );
 			scene.add( sphere );
 
