@@ -9,23 +9,22 @@ function init() {
 
 
     /****** SUN *********/
-			var geometry = new THREE.SphereGeometry( 2, 8, 6 );
-<<<<<<< Updated upstream
+			var geometry = new THREE.IcosahedronGeometry(5, 1)
 			var material = new THREE.MeshBasicMaterial( {color: 0x2194ce} );
-=======
 			var material = new THREE.MeshPhongMaterial( {color: 0x2194ce} );
             material.shading = THREE.FlatShading;
->>>>>>> Stashed changes
 			var sphere = new THREE.Mesh( geometry, material );
 			scene.add( sphere );
 
             console.log(sphere);
 
-            /*ELINS BAJS
-            for(i=6; i < sphere.geometry.vertices.length; i=i+3) {
+            
+            for(i=0; i < sphere.geometry.vertices.length; i = i+3) {
                 sphere.geometry.vertices[i].x = sphere.geometry.vertices[i].x + Math.floor((Math.random() * 10) + 1)/10;
+                sphere.geometry.vertices[i].y = sphere.geometry.vertices[i].y + Math.floor((Math.random() * 10) + 1)/20;
+                sphere.geometry.vertices[i].z = sphere.geometry.vertices[i].z + Math.floor((Math.random() * 10) + 1)/15;
             }
-            sphere.VerticesNeedUpdate = true;*/
+            sphere.VerticesNeedUpdate = true;
 
 
     /****** LIGHT SOURCES *********/
