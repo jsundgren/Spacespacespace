@@ -62,6 +62,11 @@ function addModel( x, y, z ) {
     }
     system.push(p);
   }
+
+  system.push(p);
+  console.log(system);
+
+}
 }
 
 // SUN

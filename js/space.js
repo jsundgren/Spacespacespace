@@ -1,5 +1,9 @@
 var renderer, scene, camera, light, controls;
 var mouseX = 0, mouseY = 0;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 
 init();
 animate();
@@ -38,6 +42,11 @@ function init() {
 	addSun();
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
 // RENDER ANIMATION
 function animate () {
 
