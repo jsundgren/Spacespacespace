@@ -9,6 +9,8 @@ v = 0.000005;
 
 u = 10^9;
 %sun = planet(333000, [0 0 0], [0 0 0], [0 0 0]);
+% mass, position, velocity, force
+
 terra = planet(1, [0 v 0], [do 0 0], [0 0 0]);
 %lunar = planet(1/6, [0 v 0], [do+0.257 0 0], [0 0 0]);
 lunar = planet(1.3, [-v 0 0], [0 do 0], [0 0 0]);
