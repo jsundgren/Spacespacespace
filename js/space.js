@@ -1,6 +1,5 @@
 var renderer, scene, camera, light, controls;
 var mouseX = 0, mouseY = 0;
-var system = [];
 
 init();
 animate();
@@ -22,7 +21,6 @@ function init() {
 	light = new THREE.DirectionalLight( 0xffffff );
 	scene.add( light );
 
-<<<<<<< HEAD
   // CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
@@ -30,8 +28,6 @@ function init() {
 	controls.enableZoom = true;
 	controls.minDistance = 60;
 	controls.maxDistance = 1000;
-=======
->>>>>>> origin/master
 
 	// EVENT LISTENERS
 	window.addEventListener( 'resize', onWindowResize, false );
@@ -41,7 +37,6 @@ function init() {
 
 	addSun();
 }
-
 
 // RENDER ANIMATION
 function animate () {
