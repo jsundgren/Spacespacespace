@@ -1,5 +1,6 @@
 var renderer, scene, camera, light;
 var mouseX = 0, mouseY = 0;
+var system = [];
 
 init();
 animate();
@@ -21,12 +22,14 @@ function init() {
 	light = new THREE.DirectionalLight( 0xffffff );
 	scene.add( light );
 
+
 	// EVENT LISTENERS
 	window.addEventListener( 'resize', onWindowResize, false );
   document.addEventListener( 'mousedown', onDocumentMouseDown, false );
   document.addEventListener( 'mousemove', onDocumentMouseMove, false );
   document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 }
+
 
 // RENDER ANIMATION
 function animate () {
