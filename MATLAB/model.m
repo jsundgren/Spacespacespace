@@ -3,13 +3,14 @@
 
 clear, clc
 
-do = 100;
+do = 1;
 a = do*2;
-v = 0.0005;
+v = 0.000005;
 
 u = 10^9;
+%sun = planet(333000, [0 0 0], [0 0 0], [0 0 0]);
 % mass, position, velocity, force
-sun = planet(333000, [0 0 0], [0 0 0], [0 0 0]);
+
 terra = planet(1, [0 v 0], [do 0 0], [0 0 0]);
 %lunar = planet(1/6, [0 v 0], [do+0.257 0 0], [0 0 0]);
 lunar = planet(1.3, [-v 0 0], [0 do 0], [0 0 0]);
@@ -17,7 +18,7 @@ smoon = planet(1.3, [0 -v 0], [-do 0 0], [0 0 0]);
 kerbal = planet(1.3, [v 0 0], [0 -do 0], [0 0 0]);
 
 
-system = [terra sun lunar smoon kerbal];
+system = [terra lunar smoon kerbal];
 
 time = 80;
 steplength = 8000;
