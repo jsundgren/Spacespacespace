@@ -62,6 +62,7 @@ function addModel( x, y, z ) {
   }
   system.push(p);
 }
+}
 
 // SUN
 function addSun( ) {
