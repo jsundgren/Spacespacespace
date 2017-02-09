@@ -9,29 +9,26 @@ function onWindowResize() {
 // MOUSE POS TRACKER
 function onDocumentMouseMove( event ) {
 
-  var windowHalfX = window.innerWidth / 2;
-  var windowHalfY = window.innerHeight / 2;
-  mouseX = (event.clientX - windowHalfX) / windowHalfX;
-  mouseY = (event.clientY - windowHalfY) / windowHalfY;
+  event.preventDefault();
+  mouseX = ( event.clientX / window.innerWidth ) * 2 - 1;
+  mouseY = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
+  displayInfo();
 }
 
 // MOUSE ACTON TRACKER
-function onDocumentMouseDown( event ) {
+function onDocumentKeyDown( event ) {
 
-  var vector = new THREE.Vector3();
+  var range = 3; var spread = 30;
+  var vector = new THREE.Vector3( camera.position.x, camera.position.y, camera.position.z );
 
-  vector.set(
-  ( event.clientX / window.innerWidth ) * 2 - 1,
-  - ( event.clientY / window.innerHeight ) * 2 + 1,
-  0.5 );
+  vector.x /= range;
+  vector.y /= range;
+  vector.z /= range;
 
-  vector.unproject( camera );
-  var dir = vector.sub( camera.position ).normalize();
-  var distance = - camera.position.z / dir.z;
-  var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
+  vector.x += THREE.Math.randFloatSpread( spread );
+  vector.y += THREE.Math.randFloatSpread( spread );
+  vector.z += THREE.Math.randFloatSpread( spread );
 
-  addModel( pos.x, pos.y ,0 );
-
-  displayInfo(pos);
+  addModel( vector.x, vector.y , vector.z );
 }
