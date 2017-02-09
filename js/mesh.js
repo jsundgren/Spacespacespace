@@ -53,14 +53,15 @@ function addModel( x, y, z ) {
 
   // CREATE PLANET
   var p = new planet(2, [0,0,0], [0,0,0], model);
-  console.log(system);
   p.add2scene(scene);
 
   if(system.length > 8) {
     scene.remove(system[0].model);
     system.shift();
   }
-  system.push(p);
+    system.push(p);
+    console.log(system);
+
 }
 }
 
