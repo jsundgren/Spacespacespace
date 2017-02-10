@@ -55,13 +55,11 @@ function addModel( x, y, z ) {
 
 
   system.push(p);
-  console.log(system);
-
-
+  console.log('Added planet');
 }
 
 // SUN
-function addSun( ) {
+function addSun() {
 
   var r = 20;
   var m = r/5;
@@ -103,5 +101,5 @@ function addSun( ) {
   scene.add( model );
   system.push(model);
 
-  console.log('added sun');
+  console.log('Added sun');
 }
