@@ -1,6 +1,6 @@
-var renderer, scene, camera, light, controls;
+var renderer, scene, camera, light, controls, sunLight;
 var mouseX = 0, mouseY = 0;
-var steplength = 8000;
+var stepLength = 8000;
 
 
 init();
@@ -23,7 +23,12 @@ function init() {
 	light = new THREE.DirectionalLight( 0xffffff );
 	scene.add( light );
 
-  // CAMERA CONTROLS
+	//CREATE LIGHT IN SUN
+	sunLight = new THREE.PointLight( 0xff0000, 1, 100 );
+	sunLight.position.set( 0, 0, 0 );
+	scene.add( sunLight );
+
+  	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
 	controls.dampingFactor = 0.9;
@@ -33,19 +38,24 @@ function init() {
 
 	// EVENT LISTENERS
 	window.addEventListener( 'resize', onWindowResize, false );
-  document.addEventListener( 'keydown', onDocumentKeyDown, false );
-  document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-  document.addEventListener( 'mouseover', onDocumentMouseMove, false );
+  	document.addEventListener( 'keydown', onDocumentKeyDown, false );
+  	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+  	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 
 	addSun();
 }
 
-// RENDER ANIMATION
+	// RENDER ANIMATION
 function animate () {
 
-  requestAnimationFrame( animate );
+  	requestAnimationFrame( animate );
 
-  light.position.set( camera.position.x, camera.position.y, camera.position.z ).normalize();
+  	light.position.set( camera.position.x, camera.position.y, camera.position.z ).normalize();
 
-  renderer.render( scene, camera );
+	/*system = sumForceSystem(system);
+	system = nextPosition(system, stepLength);*/
+
+	displayInfo();
+
+  	renderer.render( scene, camera );
 }

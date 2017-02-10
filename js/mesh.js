@@ -50,7 +50,7 @@ function addModel( x, y, z ) {
   console.log( x ,y ,z );
 
   // CREATE PLANET
-  var p = new planet(2, [0,0,0], [x,y,z], model);
+  var p = new planet(r/5, [0,0,0], [x,y,z], model);
   p.add2scene(scene);
 
 

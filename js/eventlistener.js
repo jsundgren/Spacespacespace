@@ -12,8 +12,6 @@ function onDocumentMouseMove( event ) {
   event.preventDefault();
   mouseX = ( event.clientX / window.innerWidth ) * 2 - 1;
   mouseY = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-  displayInfo();
 }
 
 // MOUSE ACTON TRACKER
