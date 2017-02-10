@@ -1,7 +1,7 @@
-var renderer, scene, camera, point, amblight, controls;
+
+var renderer, scene, camera, point, amblight, controls, stats;
 var mouseX = 0, mouseY = 0;
 var steplength = 8000;
-
 
 init();
 animate();
@@ -34,6 +34,13 @@ function init() {
 	controls.minDistance = 60;
 	controls.maxDistance = 1000;
 
+	// STATS
+	stats = new Stats();
+	document.body.appendChild( stats.dom );
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.left = '20px';
+	stats.domElement.style.top = '10px';
+
 	// EVENT LISTENERS
 	window.addEventListener( 'resize', onWindowResize, false );
 	document.addEventListener( 'keydown', onDocumentKeyDown, false );
@@ -46,13 +53,15 @@ function init() {
 // RENDER ANIMATION
 function animate () {
 
-
   requestAnimationFrame( animate );
-  
+
   //light.position.set( camera.position.x, camera.position.y, camera.position.z ).normalize();
 
   displayInfo();
 
   renderer.render( scene, camera );
 
+	stats.begin();
+	renderer.render( scene, camera );
+	stats.end();
 }
