@@ -10,7 +10,7 @@ function addModel( x, y, z ) {
   var geometry = new THREE.IcosahedronGeometry( r, 1 );
 
   for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
-		geometry.faces[i].color.setHex( matColor + m );
+    geometry.faces[i].color.setHex( matColor + m );
   }
 
   var material = new THREE.MeshPhongMaterial( { color: matColor, vertexColors: THREE.VertexColors } );
@@ -49,20 +49,15 @@ function addModel( x, y, z ) {
 
   console.log( x ,y ,z );
 
-  if( THREE.Math.randInt( 1, 3 ) == 3 ) {
-
   // CREATE PLANET
-  var p = new planet(2, [0,0,0], [0,0,0], model);
+  var p = new planet(2, [0,0,0], [x,y,z], model);
   p.add2scene(scene);
 
-  if(system.length > 8) {
-    scene.remove(system[0].model);
-    system.shift();
-  }
-    system.push(p);
-    console.log(system);
 
-}
+  system.push(p);
+  console.log(system);
+
+
 }
 
 // SUN
@@ -88,6 +83,7 @@ function addSun( ) {
   model.position.z = 0;
 
   scene.add( model );
+  system.push(model);
 
   console.log('added sun');
 }

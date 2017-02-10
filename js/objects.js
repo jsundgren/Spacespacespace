@@ -2,7 +2,7 @@ class planet {
 
     constructor(ma, v, p, mod) {
         this.mass = ma;
-        this.vel= v;
+        this.velocity= v;
         this.pos = p;
         this.force = [0, 0, 0];
         this.model = mod;

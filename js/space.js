@@ -1,5 +1,6 @@
 var renderer, scene, camera, light, controls;
 var mouseX = 0, mouseY = 0;
+var steplength = 8000;
 
 
 init();
@@ -38,8 +39,6 @@ function init() {
 
 	addSun();
 }
-
-
 
 // RENDER ANIMATION
 function animate () {
