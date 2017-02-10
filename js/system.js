@@ -63,5 +63,3 @@ function nextPosition(p1, h) {
     }
 
 }
-
-

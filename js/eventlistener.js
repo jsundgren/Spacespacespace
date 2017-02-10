@@ -13,11 +13,14 @@ function onDocumentMouseMove( event ) {
   mouseX = ( event.clientX / window.innerWidth ) * 2 - 1;
   mouseY = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-  displayInfo();
 }
 
 // MOUSE ACTON TRACKER
 function onDocumentKeyDown( event ) {
+
+  if ( event.keyCode !==32 ){
+    return;
+  }
 
   var range = 3; var spread = 30;
   var vector = new THREE.Vector3( camera.position.x, camera.position.y, camera.position.z );
