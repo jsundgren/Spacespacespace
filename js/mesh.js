@@ -49,20 +49,18 @@ function addModel( x, y, z ) {
 
   console.log( x ,y ,z );
 
-  if( THREE.Math.randInt( 1, 3 ) == 3 ) {
-
   // CREATE PLANET
-  var p = new planet(2, [0,0,0], [0,0,0], model);
+  var p = new planet(2, [0,0,0], [x,y,z], model);
   p.add2scene(scene);
 
-  if(system.length > 8) {
-    scene.remove(system[0].model);
-    system.shift();
-  }
+
     system.push(p);
     console.log(system);
 
-}
+    system = sumForceSystem(system);
+    nextPosition(system, steplength);
+
+
 }
 
 // SUN
@@ -88,6 +86,7 @@ function addSun( ) {
   model.position.z = 0;
 
   scene.add( model );
+  system.push(model);
 
   console.log('added sun');
 }
