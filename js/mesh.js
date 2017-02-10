@@ -70,18 +70,36 @@ function addSun( ) {
   var material = new THREE.MeshPhongMaterial( { color: 0xffff00 } );
   material.shading = THREE.FlatShading;
 
+  var geometryGlow = new THREE.IcosahedronGeometry( 1.2*r, 3 );
+  var materialGlow = new THREE.MeshBasicMaterial( { color: 0xea812a, transparent: true, opacity: 0.1, side: THREE.DoubleSide} );
+  materialGlow.shading = THREE.FlatShading;
+
   var model = new THREE.Mesh( geometry, material );
+  var modelGlow = new THREE.Mesh( geometryGlow  , materialGlow );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
+
     model.geometry.vertices[i].x += THREE.Math.randFloatSpread( m );
     model.geometry.vertices[i].y += THREE.Math.randFloatSpread( m );
     model.geometry.vertices[i].z += THREE.Math.randFloatSpread( m );
+  }
+
+  for( i = 0; i < modelGlow.geometry.vertices.length; i = i + 3 ) {
+
+    modelGlow.geometry.vertices[i].x += THREE.Math.randFloatSpread( 1.5*m );
+    modelGlow.geometry.vertices[i].y += THREE.Math.randFloatSpread( 1.5*m );
+    modelGlow.geometry.vertices[i].z += THREE.Math.randFloatSpread( 1.5*m );
   }
 
   model.position.x = 0;
   model.position.y = 0;
   model.position.z = 0;
 
+  modelGlow.position.x = 0;
+  modelGlow.position.y = 0;
+  modelGlow.position.z = 0;
+
+  model.add( modelGlow );
   scene.add( model );
   system.push(model);
 

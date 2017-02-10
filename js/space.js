@@ -4,7 +4,7 @@ var steplength = 8000;
 
 
 init();
-animate();
+//animate();
 
 function init() {
 
