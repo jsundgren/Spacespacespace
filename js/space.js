@@ -26,7 +26,7 @@ function init() {
 	amblight = new THREE.AmbientLight(0xffffff, 0.1);
 	scene.add(amblight);
 
-  // CAMERA CONTROLS
+	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
 	controls.dampingFactor = 0.9;
@@ -36,9 +36,9 @@ function init() {
 
 	// EVENT LISTENERS
 	window.addEventListener( 'resize', onWindowResize, false );
-    document.addEventListener( 'keydown', onDocumentKeyDown, false );
-    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-    document.addEventListener( 'mouseover', onDocumentMouseMove, false );
+	document.addEventListener( 'keydown', onDocumentKeyDown, false );
+	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 
 	addSun();
 }
@@ -46,10 +46,13 @@ function init() {
 // RENDER ANIMATION
 function animate () {
 
+
   requestAnimationFrame( animate );
   
   //light.position.set( camera.position.x, camera.position.y, camera.position.z ).normalize();
-	displayInfo();
+
+  displayInfo();
 
   renderer.render( scene, camera );
+
 }
