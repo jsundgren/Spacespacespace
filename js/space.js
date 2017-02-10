@@ -46,6 +46,7 @@ function animate () {
   requestAnimationFrame( animate );
 
   light.position.set( camera.position.x, camera.position.y, camera.position.z ).normalize();
+	displayInfo();
 
   renderer.render( scene, camera );
 }
