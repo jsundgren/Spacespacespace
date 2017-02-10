@@ -10,7 +10,7 @@ function addModel( x, y, z ) {
   var geometry = new THREE.IcosahedronGeometry( r, 1 );
 
   for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
-		geometry.faces[i].color.setHex( matColor + m );
+    geometry.faces[i].color.setHex( matColor + m );
   }
 
   var material = new THREE.MeshPhongMaterial( { color: matColor, vertexColors: THREE.VertexColors } );
@@ -54,11 +54,8 @@ function addModel( x, y, z ) {
   p.add2scene(scene);
 
 
-    system.push(p);
-    console.log(system);
-
-    system = sumForceSystem(system);
-    nextPosition(system, steplength);
+  system.push(p);
+  console.log(system);
 
 
 }
