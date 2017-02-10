@@ -1,4 +1,3 @@
-
 var renderer, scene, camera, point, amblight, controls, stats;
 var mouseX = 0, mouseY = 0;
 var steplength = 8000;
@@ -16,7 +15,7 @@ function init() {
 
 	// CREATE SCENE & CAMERA
 	scene = new THREE.Scene();
-	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 2000 );
 	camera.position.set(0, 0, -200);
 
 	// CREATE LIGHT SOURCES
@@ -55,11 +54,7 @@ function animate () {
 
   requestAnimationFrame( animate );
 
-  //light.position.set( camera.position.x, camera.position.y, camera.position.z ).normalize();
-
   displayInfo();
-
-  renderer.render( scene, camera );
 
 	stats.begin();
 	renderer.render( scene, camera );

@@ -37,7 +37,6 @@ function sumForceSystem(f1) {
 
   for(var i = 0; i < f1.length-1; i++) {
     for(var j = i+1; j < f1.length; j++) {
-
       f2[i].force = f2[i].force + calcForce(f2[i], f1[j]);
       f2[j].force = f2[j].force + calcForce(f1[j], f2[i]);
     }
