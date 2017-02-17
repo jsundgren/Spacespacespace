@@ -42,13 +42,13 @@ function init() {
   	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
   	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 
+
 	addSun();
 }
 
 	// RENDER ANIMATION
 function animate () {
-
-  	requestAnimationFrame( animate );
+	requestAnimationFrame( animate );
 
   	light.position.set( camera.position.x, camera.position.y, camera.position.z ).normalize();
 
@@ -58,4 +58,5 @@ function animate () {
 	displayInfo();
 
   	renderer.render( scene, camera );
+
 }

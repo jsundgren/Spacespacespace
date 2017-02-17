@@ -17,6 +17,10 @@ function onDocumentMouseMove( event ) {
 // MOUSE ACTON TRACKER
 function onDocumentKeyDown( event ) {
 
+  if ( event.keyCode !==32 ){
+    return;
+  }
+
   var range = 3; var spread = 30;
   var vector = new THREE.Vector3( camera.position.x, camera.position.y, camera.position.z );
 

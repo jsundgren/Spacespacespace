@@ -1,6 +1,6 @@
 var system = [];
-var G = 6.674*10^11;
 
+var G = 6.674*10^11;
 
 function calcForce(planet1, planet2) {
 
@@ -8,23 +8,25 @@ function calcForce(planet1, planet2) {
     var fY = planet2.pos[2] - planet1.pos[2];
     var fZ = planet2.pos[3] - planet1.pos[3];
 
-    var d = sqrt( fX*fX + fY*fY + fZ*fZ );
 
-    var epsi = 2.22e-1;
+  var d = sqrt( fX*fX + fY*fY + fZ*fZ );
 
-    if(d < epsi) {
-        d = epsi;
-    }
+  var epsi = 2.22e-1;
 
-    var nfX = fX / d;
-    var nfY = fY / d;
-    var nfZ = fZ / d;
+  if(d < epsi) {
+    d = epsi;
+  }
+
+  var nfX = fX / d;
+  var nfY = fY / d;
+  var nfZ = fZ / d;
 
     var fM = G * planet1.mass * planet2.mass / (d * d);
 
-    var f = [nfX, nfY, nfZ] * fM;
 
-    return f;
+  var f = [nfX, nfY, nfZ] * fM;
+
+  return f;
 }
 
 function sumForceSystem(system1) {
@@ -49,7 +51,7 @@ function euler(y1, func, steplength) {
 
     y2 = y1 + func * steplength;
 
-    return y2;
+  return y2;
 }
 
 function nextPosition(system1, steplength) {
@@ -63,6 +65,7 @@ function nextPosition(system1, steplength) {
     }
 
 }
+
 
 
 function centerOfMass(system1) {
@@ -81,5 +84,3 @@ function centerOfMass(system1) {
     }
     return com;
 }
-
-
