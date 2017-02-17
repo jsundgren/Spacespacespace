@@ -43,6 +43,7 @@ function sumForceSystem(system1) {
             system2[i].force = system2[i].force + calcForce(system2[i], system1[j]);
             system2[j].force = system2[j].force + calcForce(system1[j], system2[i]);
         }
+
     }
     return system2;
 }

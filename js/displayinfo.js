@@ -1,4 +1,4 @@
-// DISPLAY MOUSE ACTION POS
+// DISPLAY CAMERA POS
 function displayInfo() {
 
 	var com = centerOfMass(system);

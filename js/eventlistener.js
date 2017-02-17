@@ -14,10 +14,10 @@ function onDocumentMouseMove( event ) {
   mouseY = - ( event.clientY / window.innerHeight ) * 2 + 1;
 }
 
-// MOUSE ACTON TRACKER
+// PRESSING SPACE BAR
 function onDocumentKeyDown( event ) {
 
-  if ( event.keyCode !==32 ){
+  if ( event.keyCode !== 32 ) {
     return;
   }
 
