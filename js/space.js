@@ -55,7 +55,7 @@ function init() {
 	//Space background is a large sphere
   	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
   	var spacesphereMat = new THREE.MeshPhongMaterial();
-  	var spacetex = THREE.ImageUtils.loadTexture('img/space.jpg');
+  	var spacetex = THREE.ImageUtils.loadTexture('img/space.png');
   	spacetex.wrapS = THREE.RepeatWrapping; 
   	spacetex.wrapT = THREE.RepeatWrapping;
   	spacesphereMat.map = spacetex;
