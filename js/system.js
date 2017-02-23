@@ -4,13 +4,12 @@ var G = 6.674*10^11;
 
 function calcForce(planet1, planet2) {
 
-    console.log(planet1.pos);
     var fX = planet2.pos[0] - planet1.pos[0];
     var fY = planet2.pos[1] - planet1.pos[1];
     var fZ = planet2.pos[2] - planet1.pos[2];
 
 
-  var d = sqrt( fX*fX + fY*fY + fZ*fZ );
+  var d = Math.sqrt( fX*fX + fY*fY + fZ*fZ );
 
   var epsi = 2.22*10^-1;
 
@@ -32,21 +31,20 @@ function calcForce(planet1, planet2) {
 
 function sumForceSystem(system1) {
 
-    var system2 = system1;
-
    for(var i=0; i < system1.length; i++) {
-        system2[i].force = [0, 0, 0];
+        system1[i].force = [0, 0, 0];
     }
 
+    force1 = [0,0,0];
+    force2
     for(var i = 0; i < system1.length-1; i++) {
         for(var j = i+1; j < system1.length; j++) {
 
-            system2[i].force = system2[i].force + calcForce(system2[i], system1[j]);
-            system2[j].force = system2[j].force + calcForce(system1[j], system2[i]);
+            system1[i].force = system1[i].force + calcForce(system[i], system[j]);
+            system1[j].force = system1[j].force + calcForce(system[j], system[i]);
         }
 
     }
-    return system2;
 }
 
 function euler(y1, func, steplength) {

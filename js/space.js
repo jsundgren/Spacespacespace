@@ -89,14 +89,14 @@ function animate () {
 =======
   	displayInfo();
 
-	system = sumForceSystem(system);
+	sumForceSystem(system);
 
 
-	if(system.length > 1) {
+	/*if(system.length > 1) {
 	system[1].model.position.x;
 	system[1].model.position.y;
 	system[1].model.position.z;
-	}
+	}*/
 	//nextPosition(system, stepLength);
 
 >>>>>>> origin/master
