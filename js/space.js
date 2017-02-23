@@ -84,7 +84,7 @@ function animate () {
 
   	requestAnimationFrame( animate );
 
-  	sunSpin();
+  	
   	displayInfo();
 
 
