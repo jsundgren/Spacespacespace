@@ -50,29 +50,6 @@ function init() {
 	document.addEventListener( 'keydown', onDocumentKeyDown, false );
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
-	
-	//Space background is a large sphere
-  	var spacetex = new THREE.TextureLoader().load("../img/space.jpg");
-  	spacetex.wrapS = THREE.RepeatWrapping; 
-  	spacetex.wrapT = THREE.RepeatWrapping;
-  	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
-  	var spacesphereMat = new THREE.MeshPhongMaterial();
-  	spacesphereMat.map = spacetex;
-  	spacesphereMat.side = THREE.BackSide;
-  	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
-
-  	//create two spotlights to illuminate the scene
-  	var spotLight = new THREE.SpotLight( 0xffffff ); 
-  	spotLight.position.set( -1000, 60, -500 ); 
-  	spotLight.intensity = 2;
-  	scene.add( spotLight );
-
-  	var spotLight2 = new THREE.SpotLight( 0x5192e9 ); 
-  	spotLight2.position.set( 1000, -60, 30 ); 
-  	spotLight2.intensity = 1.5;
-  	scene.add( spotLight2 );
-  
-  	scene.add(spacesphere);
 
 	addSun();
 }
@@ -84,19 +61,7 @@ function animate () {
 
 
   	displayInfo();
-  	system[0].model.rotateX(0.02);
-  	system[1].model.rotateY(0.02);
-  	displayInfo();
 
-	//sumForceSystem(system);
-
-
-	/*if(system.length > 1) {
-	system[1].model.position.x;
-	system[1].model.position.y;
-	system[1].model.position.z;
-	}*/
-	//nextPosition(system, stepLength);
 
 	stats.begin();
 	renderer.render( scene, camera );
