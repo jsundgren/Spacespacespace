@@ -52,7 +52,7 @@ function init() {
 	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 	
 	//Space background is a large sphere
-  	var spacetex = new THREE.TextureLoader().load("../img/space.jpg");
+  	var spacetex = THREE.ImageUtils.loadTexture("../img/space.jpgs")
   	spacetex.wrapS = THREE.RepeatWrapping; 
   	spacetex.wrapT = THREE.RepeatWrapping;
   	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
