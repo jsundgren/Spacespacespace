@@ -71,7 +71,7 @@ function addSun() {
   var m = r/5;
 
   var geometry = new THREE.IcosahedronGeometry( r, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+  var material = new THREE.MeshBasicMaterial( { color: 0xffff2d } );
   material.shading = THREE.FlatShading;
 
   var geometryGlow = new THREE.IcosahedronGeometry( 1.2*r, 3 );
@@ -102,10 +102,13 @@ function addSun() {
   modelGlow.position.y = 0;
   modelGlow.position.z = 0;
 
-  model.add( modelGlow );
   var p = new planet(r/5, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
+  var p1 = new planet(r/5, [0,0,0], [modelGlow.position.x, modelGlow.position.y, modelGlow.position.z], modelGlow);
+
   system.push(p);
+  system.push(p1);
   p.add2scene(scene);
+  p1.add2scene(scene);
 
   console.log('Added sun');
 }

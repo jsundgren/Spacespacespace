@@ -22,7 +22,7 @@ function init() {
 	point = new THREE.PointLight(0xffffff, 1, 300, 2);
 	point.position.set(0,0,0);
 	scene.add(point);
-	amblight = new THREE.AmbientLight(0xffffff, 0.3);
+	amblight = new THREE.AmbientLight(0xffffff, 1);
 	scene.add(amblight);
 
 	//CREATE LIGHT IN SUN
@@ -50,6 +50,29 @@ function init() {
 	document.addEventListener( 'keydown', onDocumentKeyDown, false );
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
+	
+	//Space background is a large sphere
+  	var spacetex = new THREE.TextureLoader().load("../img/space.jpg");
+  	spacetex.wrapS = THREE.RepeatWrapping; 
+  	spacetex.wrapT = THREE.RepeatWrapping;
+  	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
+  	var spacesphereMat = new THREE.MeshPhongMaterial();
+  	spacesphereMat.map = spacetex;
+  	spacesphereMat.side = THREE.BackSide;
+  	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
+
+  	//create two spotlights to illuminate the scene
+  	var spotLight = new THREE.SpotLight( 0xffffff ); 
+  	spotLight.position.set( -1000, 60, -500 ); 
+  	spotLight.intensity = 2;
+  	scene.add( spotLight );
+
+  	var spotLight2 = new THREE.SpotLight( 0x5192e9 ); 
+  	spotLight2.position.set( 1000, -60, 30 ); 
+  	spotLight2.intensity = 1.5;
+  	scene.add( spotLight2 );
+  
+  	scene.add(spacesphere);
 
 	addSun();
 }
@@ -60,7 +83,8 @@ function animate () {
   requestAnimationFrame( animate );
 
   displayInfo();
-
+  	system[0].model.rotateX(0.02);
+  	system[1].model.rotateY(0.02);
 	stats.begin();
 	renderer.render( scene, camera );
 	stats.end();
