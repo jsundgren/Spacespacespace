@@ -52,14 +52,12 @@ function init() {
 	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 	
 	//Space background is a large sphere
-  	var spacetex = THREE.ImageUtils.loadTexture("../img/space.jpgs")
-  	spacetex.wrapS = THREE.RepeatWrapping; 
-  	spacetex.wrapT = THREE.RepeatWrapping;
-  	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
-  	var spacesphereMat = new THREE.MeshPhongMaterial();
-  	spacesphereMat.map = spacetex;
-  	spacesphereMat.side = THREE.BackSide;
-  	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
+	var geometryStars = new THREE.SphereGeometry(1000, 32, 32);
+	var materialStars = new THREE.MeshBasicMaterial();
+	materialStars.map = THREE.ImageUtils.loadTexture('../img/space.jpg');
+	materialStars.side = THREE.BackSide;
+	var starMesh = new THREE.Mesh(geometryStars, materialStars);
+	scene.add(starMesh);
 
   	//create two spotlights to illuminate the scene
   	var spotLight = new THREE.SpotLight( 0xffffff ); 
