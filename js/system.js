@@ -63,6 +63,11 @@ function nextPosition(system1, steplength) {
         system2[i].velocity = euler(system1[i].velocity, system1[i].force/system1[i].mass, steplength);
         system2[i].pos = euler(system1[i].pos, system2[i].velocity, steplength);
         system2[i].model.position = system2[i].pos;
+
+        if(Math.abs(system2[i].pos) > controls.maxDistance)	
+        {
+        	system2.remove(system2[i]);
+        }
     }
 
 }
