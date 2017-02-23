@@ -19,16 +19,11 @@ function init() {
 	camera.position.set(0, 0, -200);
 
 	// CREATE LIGHT SOURCES
-	point = new THREE.PointLight(0xffffff, 1, 300, 2);
-	point.position.set(0,0,0);
-	scene.add(point);
+	sun = new THREE.PointLight(0xffffff, 1, 300, 2);
+	sun.position.set(0,0,0);
+	scene.add(sun);
 	amblight = new THREE.AmbientLight(0xffffff, 0.1);
 	scene.add(amblight);
-
-	//CREATE LIGHT IN SUN
-	sunLight = new THREE.PointLight( 0xff0000, 1, 100 );
-	sunLight.position.set( 0, 0, 0 );
-	scene.add( sunLight );
 
   	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -62,20 +57,7 @@ function init() {
   	spacesphereMat.side = THREE.BackSide;
   	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
   	scene.add(spacesphere);
-  	
-  	//create two spotlights to illuminate the scene
-  	var spotLight = new THREE.SpotLight( 0xffffff ); 
-  	spotLight.position.set( -1000, 60, -500 ); 
-  	spotLight.intensity = 2;
-  	scene.add( spotLight );
-
-  	var spotLight2 = new THREE.SpotLight( 0x5192e9 ); 
-  	spotLight2.position.set( 1000, -60, 30 ); 
-  	spotLight2.intensity = 1.5;
-  	scene.add( spotLight2 );
   
-  	
-
 	addSun();
 }
 
