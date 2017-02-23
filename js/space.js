@@ -82,11 +82,10 @@ function animate () {
 
   	requestAnimationFrame( animate );
 
-<<<<<<< HEAD
-  displayInfo();
+
+  	displayInfo();
   	system[0].model.rotateX(0.02);
   	system[1].model.rotateY(0.02);
-=======
   	displayInfo();
 
 	system = sumForceSystem(system);
@@ -99,7 +98,6 @@ function animate () {
 	}
 	//nextPosition(system, stepLength);
 
->>>>>>> origin/master
 	stats.begin();
 	renderer.render( scene, camera );
 	stats.end();
