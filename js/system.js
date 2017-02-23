@@ -3,15 +3,13 @@ var system = [];
 var G = 6.674*10^11;
 
 function calcForce(planet1, planet2) {
-
-    var fX = planet2.pos[0] - planet1.pos[0];
-    var fY = planet2.pos[1] - planet1.pos[1];
-    var fZ = planet2.pos[2] - planet1.pos[2];
-
+  var fX = planet2.pos[0] - planet1.pos[0];
+  var fY = planet2.pos[1] - planet1.pos[1];
+  var fZ = planet2.pos[2] - planet1.pos[2];
 
   var d = Math.sqrt( fX*fX + fY*fY + fZ*fZ );
 
-  var epsi = 2.22*10^-1;
+  var epsi = 20;
 
   if(d < epsi) {
     d = epsi;
@@ -20,56 +18,69 @@ function calcForce(planet1, planet2) {
   var nfX = fX / d;
   var nfY = fY / d;
   var nfZ = fZ / d;
+  var fM = G * planet1.mass * planet2.mass / (d * d);
 
-    var fM = G * planet1.mass * planet2.mass / (d * d);
-
-
-  var f = [nfX, nfY, nfZ] * fM;
+  var f = [nfX*fM, nfY* fM, nfZ*fM];
 
   return f;
 }
 
-function sumForceSystem(system1) {
+function uppdateForces() {
 
-   for(var i=0; i < system1.length; i++) {
-        system1[i].force = [0, 0, 0];
+  var forces = [];
+
+  for(var i = 0; i < system.length; i++) {
+    forces.push([0, 0, 0]);
+  }
+
+  for(var i = 0; i < system.length-1; i++) {
+    for(var j = i+1; j < system.length; j++) {
+
+      forces[i][0] += calcForce(system[i], system[j])[0];
+      forces[j][0] += calcForce(system[j], system[i])[0];
+
+      forces[i][1] += calcForce(system[i], system[j])[1];
+      forces[j][1] += calcForce(system[j], system[i])[1];
+
+      forces[i][2] += calcForce(system[i], system[j])[2];
+      forces[j][2] += calcForce(system[j], system[i])[2];
     }
 
-    force1 = [0,0,0];
+    system[i].force = forces[i];
+  }
 
-    for(var i = 0; i < system1.length-1; i++) {
-        for(var j = i+1; j < system1.length; j++) {
-
-            system1[i].force = system1[i].force + calcForce(system[i], system[j]);
-            system1[j].force = system1[j].force + calcForce(system[j], system[i]);
-        }
-
-    }
+  system[system.length-1].force = forces[system.length-1];
 }
 
-function euler(y1, func, steplength) {
+function euler(input, func) {
 
-    y2 = y1 + func * steplength;
+  var x = func[0] * stepLength + input[0];
+  var y = func[1] * stepLength + input[1];
+  var z = func[2] * stepLength + input[2];
 
-  return y2;
+  return [x, y, z];
 }
 
-function nextPosition(system1, steplength) {
+function uppdatePositions() {
 
-    var system2 = system1;
+  for(var i = 0; i < system.length; i++) {
 
-    for(var i = 0; i < system1.length; i++) {
-        system2[i].velocity = euler(system1[i].velocity, system1[i].force/system1[i].mass, steplength);
-        system2[i].pos = euler(system1[i].pos, system2[i].velocity, steplength);
-        system2[i].model.position = system2[i].pos;
+    var x = system[i].force[0]/system[i].mass;
+    var y = system[i].force[1]/system[i].mass;
+    var z = system[i].force[2]/system[i].mass;
 
-        //removes planet if it is to far out
-        if(Math.abs(system2[i].pos) > controls.maxDistance)
-        {
-        	system2.remove(system2[i]);
-        }
-    }
+    system[i].velocity = euler(system[i].velocity, [x, y, z]);
+    system[i].pos = euler(system[i].pos, system[i].velocity);
 
+    system[i].model.position.x = system[i].pos[0];
+    system[i].model.position.y = system[i].pos[1];
+    system[i].model.position.z = system[i].pos[2];
+
+/*
+    if(Math.abs(system2[i].pos) > controls.maxDistance)  {
+      system2.remove(system2[i]);
+    }*/
+  }
 }
 
 function centerOfMass() {

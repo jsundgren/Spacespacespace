@@ -1,6 +1,6 @@
 var renderer, scene, camera, point, amblight, controls, stats;
 var mouseX = 0, mouseY = 0;
-var stepLength = 8000;
+var stepLength = 1;
 
 init();
 animate();
@@ -46,31 +46,36 @@ function init() {
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 
-	
+
 	//Space background is a large sphere
   	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
   	var spacesphereMat = new THREE.MeshPhongMaterial();
   	var spacetex = THREE.ImageUtils.loadTexture('img/space.png');
-  	spacetex.wrapS = THREE.RepeatWrapping; 
+  	spacetex.wrapS = THREE.RepeatWrapping;
   	spacetex.wrapT = THREE.RepeatWrapping;
   	spacesphereMat.map = spacetex;
   	spacesphereMat.side = THREE.BackSide;
   	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
   	scene.add(spacesphere);
-  
+
 	addSun();
 }
 
 	// RENDER ANIMATION
-function animate () {
+	function animate () {
 
-  	requestAnimationFrame( animate );
+		requestAnimationFrame( animate );
 
-  	
-  	displayInfo();
-  	sunSpin();
+		sunSpin();
+		uppdateForces();
+		uppdatePositions();
+		displayInfo();
 
-	stats.begin();
-	renderer.render( scene, camera );
-	stats.end();
-}
+		camera.position.x = centerOfMass()[0];
+		camera.position.y = centerOfMass()[1];
+		camera.position.z = centerOfMass()[2] - 200;
+
+		stats.begin();
+		renderer.render( scene, camera );
+		stats.end();
+	}

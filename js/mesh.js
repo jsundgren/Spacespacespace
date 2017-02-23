@@ -57,8 +57,9 @@ function addModel( ) {
   model.position.z = vector.z;
 
   // CREATE PLANET
-  var p = new planet(r/5, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
+  var p = new planet(1, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
   system.push(p);
+  p.velocity = initialVelocity();
   p.add2scene(scene);
 
   console.log('Added planet ' + system.length );
@@ -102,18 +103,16 @@ function addSun() {
   modelGlow.position.y = 0;
   modelGlow.position.z = 0;
 
-  var p = new planet(r/5, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
-  var p1 = new planet(r/5, [0,0,0], [modelGlow.position.x, modelGlow.position.y, modelGlow.position.z], modelGlow);
+  model.add(modelGlow);
+  var p = new planet(1, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
 
   system.push(p);
-  system.push(p1);
   p.add2scene(scene);
-  p1.add2scene(scene);
 
   console.log('Added sun');
 }
 
 function sunSpin() {
-	system[0].model.rotateX(0.02);
-	system[1].model.rotateY(0.02);
+	system[0].model.rotateX(0.01);
+  system[0].model.rotateY(0.003);
 }
