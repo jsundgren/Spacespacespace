@@ -21,16 +21,5 @@ function onDocumentKeyDown( event ) {
     return;
   }
 
-  var range = 3; var spread = 30;
-  var vector = new THREE.Vector3( camera.position.x, camera.position.y, camera.position.z );
-
-  vector.x /= range;
-  vector.y /= range;
-  vector.z /= range;
-
-  vector.x += THREE.Math.randFloatSpread( spread );
-  vector.y += THREE.Math.randFloatSpread( spread );
-  vector.z += THREE.Math.randFloatSpread( spread );
-
-  addModel( vector.x, vector.y , vector.z );
+  addModel();
 }

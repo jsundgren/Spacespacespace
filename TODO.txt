@@ -1,4 +1,4 @@
-
+﻿
 Måste fungera:
 - Få planetarna att röra på sig fint
 
@@ -10,8 +10,7 @@ Hade varit gött men behövs inte:
 - Lägga till fin fog
 - Lägga till fin musik
 - Center of mass-grejen
-- SimplifyModifier-grejen
-- Sträck bakom planeterna
+- Streck bakom planeterna
 
 Hade också varit gött men behövs inte och mycket jobb:
 - GUI med info o knappar o sånt

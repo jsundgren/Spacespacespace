@@ -1,9 +1,26 @@
 // ADD PLANET
-function addModel( x, y, z ) {
+function addModel( ) {
 
+  // Avstånd från solen
+  var range = 3;
+  // Osäkerhet
+  var spread = 30;
+  // Radie
   var r = THREE.Math.randFloat( 3, 10 );
+  // Bucklar planeten
   var m = r/5;
+  // Färg
   var matColor = Math.random() * 0xffffff;
+
+  var vector = new THREE.Vector3( camera.position.x, camera.position.y, camera.position.z );
+
+  vector.x /= range;
+  vector.y /= range;
+  vector.z /= range;
+
+  vector.x += THREE.Math.randFloatSpread( spread );
+  vector.y += THREE.Math.randFloatSpread( spread );
+  vector.z += THREE.Math.randFloatSpread( spread );
 
   // CREATE SPHERE
   var geometry = new THREE.IcosahedronGeometry( r, 1 );
@@ -23,10 +40,8 @@ function addModel( x, y, z ) {
     model.geometry.vertices[i].z += THREE.Math.randFloatSpread( m );
   }
 
-  scene.add( model );
-
   // CREATE RINGS
-  if(THREE.Math.randInt(1, 3) == 3) {
+  if(Math.random() > 0.3) {
     var radTorus = r + THREE.Math.randFloat(1, 1.3);
     var colorRing = Math.random()*0xffffff;
 
@@ -37,17 +52,16 @@ function addModel( x, y, z ) {
     model.add(torus);
   }
 
-  model.position.x = x;
-  model.position.y = y;
-  model.position.z = z;
+  model.position.x = vector.x;
+  model.position.y = vector.y;
+  model.position.z = vector.z;
 
   // CREATE PLANET
-  var p = new planet(r/5, [0,0,0], [x,y,z], model);
+  var p = new planet(r/5, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
+  system.push(p);
   p.add2scene(scene);
 
-  system.push(p);
-  
-  console.log('Added planet');
+  console.log('Added planet ' + system.length );
 }
 
 // SUN
@@ -57,7 +71,7 @@ function addSun() {
   var m = r/5;
 
   var geometry = new THREE.IcosahedronGeometry( r, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+  var material = new THREE.MeshBasicMaterial( { color: 0xffff2d } );
   material.shading = THREE.FlatShading;
 
   var geometryGlow = new THREE.IcosahedronGeometry( 1.2*r, 3 );
@@ -88,9 +102,13 @@ function addSun() {
   modelGlow.position.y = 0;
   modelGlow.position.z = 0;
 
-  model.add( modelGlow );
-  scene.add( model );
-  system.push(model);
+  var p = new planet(r/5, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
+  var p1 = new planet(r/5, [0,0,0], [modelGlow.position.x, modelGlow.position.y, modelGlow.position.z], modelGlow);
+
+  system.push(p);
+  system.push(p1);
+  p.add2scene(scene);
+  p1.add2scene(scene);
 
   console.log('Added sun');
 }
