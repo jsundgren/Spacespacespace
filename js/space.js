@@ -53,15 +53,16 @@ function init() {
 
 	
 	//Space background is a large sphere
-  	var spacetex = THREE.ImageUtils.loadTexture('../Spacespacespace/img/space.jpg');
-  	spacetex.wrapS = THREE.RepeatWrapping; 
-  	spacetex.wrapT = THREE.RepeatWrapping;
   	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
   	var spacesphereMat = new THREE.MeshPhongMaterial();
+  	var spacetex = THREE.ImageUtils.loadTexture('img/space.jpg');
+  	spacetex.wrapS = THREE.RepeatWrapping; 
+  	spacetex.wrapT = THREE.RepeatWrapping;
   	spacesphereMat.map = spacetex;
   	spacesphereMat.side = THREE.BackSide;
   	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
-
+  	scene.add(spacesphere);
+  	
   	//create two spotlights to illuminate the scene
   	var spotLight = new THREE.SpotLight( 0xffffff ); 
   	spotLight.position.set( -1000, 60, -500 ); 
@@ -73,7 +74,7 @@ function init() {
   	spotLight2.intensity = 1.5;
   	scene.add( spotLight2 );
   
-  	scene.add(spacesphere);
+  	
 
 	addSun();
 }
