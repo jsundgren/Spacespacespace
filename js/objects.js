@@ -11,5 +11,10 @@ class planet {
     this.add2scene = function (scene) {
       scene.add(mod);
     }
+
+    this.updatePos = function () {
+      this.model.position = pos;
+
+    }
   }
 }

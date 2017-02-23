@@ -4,14 +4,15 @@ var G = 6.674*10^11;
 
 function calcForce(planet1, planet2) {
 
-    var fX = planet2.pos[1] - planet1.pos[1];
-    var fY = planet2.pos[2] - planet1.pos[2];
-    var fZ = planet2.pos[3] - planet1.pos[3];
+    console.log(planet1.pos);
+    var fX = planet2.pos[0] - planet1.pos[0];
+    var fY = planet2.pos[1] - planet1.pos[1];
+    var fZ = planet2.pos[2] - planet1.pos[2];
 
 
   var d = sqrt( fX*fX + fY*fY + fZ*fZ );
 
-  var epsi = 2.22e-1;
+  var epsi = 2.22*10^-1;
 
   if(d < epsi) {
     d = epsi;
@@ -33,7 +34,7 @@ function sumForceSystem(system1) {
 
     var system2 = system1;
 
-    for(var i=0; i < system1.length; i++) {
+   for(var i=0; i < system1.length; i++) {
         system2[i].force = [0, 0, 0];
     }
 
@@ -66,7 +67,6 @@ function nextPosition(system1, steplength) {
     }
 
 }
-
 
 
 function centerOfMass(system1) {
