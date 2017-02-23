@@ -47,10 +47,9 @@ function init() {
 
 	// EVENT LISTENERS
 	window.addEventListener( 'resize', onWindowResize, false );
-  	document.addEventListener( 'keydown', onDocumentKeyDown, false );
-  	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-  	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
-
+	document.addEventListener( 'keydown', onDocumentKeyDown, false );
+	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 
 	addSun();
 }
