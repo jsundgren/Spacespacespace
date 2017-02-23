@@ -36,7 +36,7 @@ function sumForceSystem(system1) {
     }
 
     force1 = [0,0,0];
-    force2
+    
     for(var i = 0; i < system1.length-1; i++) {
         for(var j = i+1; j < system1.length; j++) {
 
