@@ -63,6 +63,7 @@ function nextPosition(system1, steplength) {
         system2[i].pos = euler(system1[i].pos, system2[i].velocity, steplength);
         system2[i].model.position = system2[i].pos;
 
+        //removes planet if it is to far out
         if(Math.abs(system2[i].pos) > controls.maxDistance)	
         {
         	system2.remove(system2[i]);
