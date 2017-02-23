@@ -88,7 +88,7 @@ function animate () {
   	system[1].model.rotateY(0.02);
   	displayInfo();
 
-	sumForceSystem(system);
+	//sumForceSystem(system);
 
 
 	/*if(system.length > 1) {
