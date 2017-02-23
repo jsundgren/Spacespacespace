@@ -114,6 +114,6 @@ function addSun() {
 }
 
 function sunSpin() {
-	system[0].rotateX(0.02);
-	system[1].rotateY(0.02);
+	system[0].model.rotateX(0.02);
+	system[1].model.rotateY(0.02);
 }

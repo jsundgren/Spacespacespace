@@ -22,7 +22,7 @@ function init() {
 	point = new THREE.PointLight(0xffffff, 1, 300, 2);
 	point.position.set(0,0,0);
 	scene.add(point);
-	amblight = new THREE.AmbientLight(0xffffff, 1);
+	amblight = new THREE.AmbientLight(0xffffff, 0.1);
 	scene.add(amblight);
 
 	//CREATE LIGHT IN SUN
@@ -86,7 +86,7 @@ function animate () {
 
   	
   	displayInfo();
-
+  	sunSpin();
 
 	stats.begin();
 	renderer.render( scene, camera );
