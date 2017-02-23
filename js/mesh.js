@@ -112,3 +112,8 @@ function addSun() {
 
   console.log('Added sun');
 }
+
+function sunSpin() {
+	system[0].rotateX(0.02);
+	system[1].rotateY(0.02);
+}

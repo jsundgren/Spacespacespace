@@ -36,7 +36,7 @@ function sumForceSystem(system1) {
     }
 
     force1 = [0,0,0];
-    
+
     for(var i = 0; i < system1.length-1; i++) {
         for(var j = i+1; j < system1.length; j++) {
 
@@ -63,7 +63,8 @@ function nextPosition(system1, steplength) {
         system2[i].pos = euler(system1[i].pos, system2[i].velocity, steplength);
         system2[i].model.position = system2[i].pos;
 
-        if(Math.abs(system2[i].pos) > controls.maxDistance)	
+        //removes planet if it is to far out
+        if(Math.abs(system2[i].pos) > controls.maxDistance)
         {
         	system2.remove(system2[i]);
         }
@@ -71,20 +72,38 @@ function nextPosition(system1, steplength) {
 
 }
 
+function centerOfMass() {
 
-function centerOfMass(system1) {
+  var com = [0, 0, 0];
 
-    var numerator = 0;
-    var denumerator = 0;
-    var com = [0, 0, 0];
-
-    for(var i = 1; i < system1.length; i++) {
-        for(var j = 1; j < 4; j++) {
-            numerator = numerator + (system1[i].mass * system1[i].pos[j]);
-            denumerator = denumerator + system1[i].mass;
-            com[j] = numerator/denumerator;
-
-        }
-    }
+  if (system.length < 2){
     return com;
+  }
+
+  var num = 0;
+  var den = 0;
+
+  for(var i = 0; i < 3; i++){
+    for( var j = 0; j < system.length; j++){
+      num += system[j].mass * system[j].pos[i];
+      den += system[j].mass;
+      com[i] = num / den;
+    }
+    num = 0;
+    den = 0;
+  }
+  return com;
+}
+
+function initialVelocity() {
+
+  var velocity = [0, 0 ,0];
+  var m = system[0].mass + system[system.length-1].mass;
+  var rX = system[0].pos[0] - system[system.length-1].pos[0];
+  var rY = system[0].pos[1] - system[system.length-1].pos[1];
+  var rZ = system[0].pos[2] - system[system.length-1].pos[2];
+  var r = Math.sqrt( rX*rX + rY*rY + rZ*rZ );
+
+  velocity[0] = Math.sqrt(G*m/r);
+  return velocity;
 }

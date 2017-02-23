@@ -50,6 +50,7 @@ function init() {
 	document.addEventListener( 'keydown', onDocumentKeyDown, false );
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
+
 	
 	//Space background is a large sphere
   	var spacetex = THREE.ImageUtils.loadTexture('../Spacespacespace/img/space.jpg');
@@ -82,21 +83,9 @@ function animate () {
 
   	requestAnimationFrame( animate );
 
-
-  	displayInfo();
-  	system[0].model.rotateX(0.02);
-  	system[1].model.rotateY(0.02);
+  	sunSpin();
   	displayInfo();
 
-	//sumForceSystem(system);
-
-
-	/*if(system.length > 1) {
-	system[1].model.position.x;
-	system[1].model.position.y;
-	system[1].model.position.z;
-	}*/
-	//nextPosition(system, stepLength);
 
 	stats.begin();
 	renderer.render( scene, camera );
