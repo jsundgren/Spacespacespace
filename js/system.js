@@ -52,6 +52,11 @@ function uppdateForces() {
   system[system.length-1].force = forces[system.length-1];
 }
 
+function setLight(){
+  var pos = new THREE.Vector3(system[0].pos[0], system[0].pos[1], system[0].pos[2]);
+  sun.position.copy(pos);
+}
+
 function euler(input, func) {
 
   var x = func[0] * stepLength + input[0];

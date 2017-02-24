@@ -1,4 +1,4 @@
-var renderer, scene, camera, point, amblight, controls, stats;
+var renderer, scene, camera, sun, amblight, controls, stats;
 var mouseX = 0, mouseY = 0;
 var stepLength = 1;
 
@@ -18,10 +18,10 @@ function init() {
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 2000 );
 	camera.position.set(0, 0, -200);
 
-	// CREATE LIGHT SOURCES
+	// CREATE LIGHT SOURCE
 	sun = new THREE.PointLight(0xffffff, 1, 300, 2);
 	sun.position.set(0,0,0);
-	scene.add(sun);
+  	scene.add(sun);
 	amblight = new THREE.AmbientLight(0xffffff, 0.1);
 	scene.add(amblight);
 
@@ -70,7 +70,7 @@ function init() {
 		uppdateForces();
 		uppdatePositions();
 		displayInfo();
-
+		setLight();
 		camera.position.x = centerOfMass()[0];
 		camera.position.y = centerOfMass()[1];
 		camera.position.z = centerOfMass()[2] - 200;

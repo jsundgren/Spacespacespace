@@ -72,7 +72,7 @@ function addSun() {
   var m = r/5;
 
   var geometry = new THREE.IcosahedronGeometry( r, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0xffff2d } );
+  var material = new THREE.MeshPhongMaterial( { color: 0xffff2d } );
   material.shading = THREE.FlatShading;
 
   var geometryGlow = new THREE.IcosahedronGeometry( 1.2*r, 3 );
