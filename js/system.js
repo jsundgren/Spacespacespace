@@ -71,7 +71,6 @@ function updatePositions() {
   } 
   sunLight.position.copy( system[0].position );
     // Kolla position -> ta bort planet
-  }
 }
 
 function CenterOfMass() {
