@@ -1,6 +1,6 @@
 var renderer, scene, camera, sunLight, controls, stats;
 var mouseX = 0, mouseY = 0;
-var stepLength = 1;
+var stepLength = 0.1;
 
 init();
 animate();

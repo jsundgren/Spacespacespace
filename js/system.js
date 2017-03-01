@@ -67,12 +67,35 @@ function updatePositions() {
 
     scene.children[i+3].position.copy( system[i].position );
 
-    // Ta bort planet function?
+    // Kolla position -> ta bort planet
   }
 }
 
 function CenterOfMass() {
+/*
 
+  ÖVERSÄTT TILL THREE VECTORS
+
+  var com = [0, 0, 0];
+
+  if (system.length < 2){
+    return com;
+  }
+
+  var num = 0;
+  var den = 0;
+
+  for(var i = 0; i < 3; i++){
+    for( var j = 0; j < system.length; j++){
+      num += system[j].mass * system[j].pos[i];
+      den += system[j].mass;
+      com[i] = num / den;
+    }
+    num = 0;
+    den = 0;
+  }
+  return com;
+*/
 }
 
 function initialVelocity( mass, planetPosition ) {
@@ -83,21 +106,17 @@ function initialVelocity( mass, planetPosition ) {
   var distance = system[0].position.distanceTo( planetPosition );
   var v = Math.sqrt( G*totMass/distance );
 
-  var direction = new THREE.Vector3( Math.random(), Math.random(), Math.random());
-  console.log(direction);
-
+  var direction = new THREE.Vector3( THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1));
   direction.projectOnPlane( camera.position ).normalize();
-  console.log(direction);
+
   var vecV = new THREE.Vector3( v, v, v );
-  console.log(vecV);
   startVelocity.multiplyVectors( direction, vecV );
-  console.log(startVelocity);
 
   return startVelocity;
 }
 
 function removePlanet(n) {
 
-  // Ta bort en planet n
-
+  scene.remove( scene.children[n+3] );
+  system.splice( n );
 }
