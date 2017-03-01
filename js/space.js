@@ -30,7 +30,7 @@ function init() {
 	sunLight = new THREE.PointLight(0xffffff, 1, 300, 2);
 	sunLight.position.set(0,0,0);
 	scene.add(sunLight);
-	ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 	scene.add(ambientLight);
 
 	// CAMERA CONTROLS

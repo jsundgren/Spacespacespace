@@ -68,7 +68,8 @@ function updatePositions() {
     scene.children[i+3].position.copy( system[i].position );
 
     // Ta bort planet function?
-  }
+  } 
+  sunLight.position.copy( system[0].position );
 }
 
 function CenterOfMass() {
