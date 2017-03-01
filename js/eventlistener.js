@@ -21,5 +21,9 @@ function onDocumentKeyDown( event ) {
     return;
   }
 
-  addModel();
+  addPlanet();
+}
+
+function display() {
+
 }
