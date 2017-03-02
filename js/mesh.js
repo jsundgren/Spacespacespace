@@ -1,118 +1,105 @@
-// ADD PLANET
-function addModel( ) {
+// ADDS A PLANET
+function addPlanet() {
 
-  // Avstånd från solen
-  var range = 3;
-  // Osäkerhet
+  var radiusMax = 10;
+  var radiusMin = 3;
+  var radius = THREE.Math.randFloat( radiusMin, radiusMax );
+  var irregularity = 2;
   var spread = 30;
-  // Radie
-  var r = THREE.Math.randFloat( 3, 10 );
-  // Bucklar planeten
-  var m = r/5;
-  // Färg
-  var matColor = Math.random() * 0xffffff;
+  var range = 3;
+  var color = Math.random() * 0xffffff;
+  var mass = 1;
 
-  var vector = new THREE.Vector3( camera.position.x, camera.position.y, camera.position.z );
+  var startPosition = new THREE.Vector3().copy( camera.position );
 
-  vector.x /= range;
-  vector.y /= range;
-  vector.z /= range;
+  startPosition.divide( new THREE.Vector3( range, range, range ));
+  startPosition.add( new THREE.Vector3( THREE.Math.randFloatSpread( spread ), THREE.Math.randFloatSpread( spread ), THREE.Math.randFloatSpread( spread )));
 
-  vector.x += THREE.Math.randFloatSpread( spread );
-  vector.y += THREE.Math.randFloatSpread( spread );
-  vector.z += THREE.Math.randFloatSpread( spread );
+  var geometry = new THREE.IcosahedronGeometry( radius, 1 );
 
-  // CREATE SPHERE
-  var geometry = new THREE.IcosahedronGeometry( r, 1 );
-
-  // COLOR THE MODEL
   for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
-    geometry.faces[i].color.setHex( matColor + 0.5 );
+    geometry.faces[i].color.setHex( color );
   }
 
-  var material = new THREE.MeshPhongMaterial( { color: matColor, vertexColors: THREE.VertexColors } );
+  var material = new THREE.MeshPhongMaterial( { color: color, vertexColors: THREE.VertexColors } );
   material.shading = THREE.FlatShading;
+
   var model = new THREE.Mesh( geometry, material );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
-    model.geometry.vertices[i].x += THREE.Math.randFloatSpread( m );
-    model.geometry.vertices[i].y += THREE.Math.randFloatSpread( m );
-    model.geometry.vertices[i].z += THREE.Math.randFloatSpread( m );
+    model.geometry.vertices[i].x += THREE.Math.randFloatSpread( irregularity );
+    model.geometry.vertices[i].y += THREE.Math.randFloatSpread( irregularity );
+    model.geometry.vertices[i].z += THREE.Math.randFloatSpread( irregularity );
   }
 
-  // CREATE RINGS
-  if(Math.random() > 0.3) {
-    var radTorus = r + THREE.Math.randFloat(1, 1.3);
-    var colorRing = Math.random()*0xffffff;
-
-    var geometryTorus = new THREE.TorusGeometry(radTorus, 0.5, 3, 11);
-    geometryTorus.rotateX(Math.random()*(3.14/2.5));
-    var materialRing = new THREE.MeshPhongMaterial({color: colorRing});
-    var torus = new THREE.Mesh( geometryTorus, materialRing );
-    model.add(torus);
+  if ( Math.random() < 0.3 ) {
+    model.add(createRing( radius ));
   }
 
-  model.position.x = vector.x;
-  model.position.y = vector.y;
-  model.position.z = vector.z;
-
-  // CREATE PLANET
-  var p = new planet(1, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
+  var p = new planet( mass, initialVelocity( mass, startPosition ), startPosition );
   system.push(p);
-  p.velocity = initialVelocity();
-  p.add2scene(scene);
+  scene.add(model);
 
-  console.log('Added planet ' + system.length );
+  console.log('Planet ' + system.length + ' created');
 }
 
-// SUN
+// CREATES A RING
+function createRing( radiusPlanet ){
+
+  var radiusRing = radiusPlanet + THREE.Math.randFloat(3, 6);
+  var thicknessRing = THREE.Math.randFloat(0.7, 1.3);
+  var colorRing = Math.random() * 0xffffff;
+
+  var geometryRing = new THREE.TorusGeometry(radiusRing, thicknessRing, 3, 11);
+  geometryRing.rotateX(Math.random()*(3.14/2.5));
+  var materialRing = new THREE.MeshPhongMaterial({color: colorRing});
+  var ring = new THREE.Mesh( geometryRing, materialRing );
+
+  return ring;
+}
+
+// ADD THE SUN
 function addSun() {
 
-  var r = 20;
-  var m = r/5;
+  var radius = 20;
+  var irregularity = 4;
+  var irregularityGlow = 10;
+  var radiusGlow = 25;
+  var transparencyGlow = 0.1;
+  var mass = 100;
 
-  var geometry = new THREE.IcosahedronGeometry( r, 1 );
+  var geometry = new THREE.IcosahedronGeometry( radius, 1 );
   var material = new THREE.MeshBasicMaterial( { color: 0xffff2d } );
   material.shading = THREE.FlatShading;
 
-  var geometryGlow = new THREE.IcosahedronGeometry( 1.2*r, 3 );
-  var materialGlow = new THREE.MeshBasicMaterial( { color: 0xea812a, transparent: true, opacity: 0.1, side: THREE.DoubleSide} );
+  var geometryGlow = new THREE.IcosahedronGeometry( radiusGlow, 3 );
+  var materialGlow = new THREE.MeshBasicMaterial( { color: 0xea812a, transparent: true, opacity: transparencyGlow, side: THREE.DoubleSide} );
   materialGlow.shading = THREE.FlatShading;
 
   var model = new THREE.Mesh( geometry, material );
   var modelGlow = new THREE.Mesh( geometryGlow  , materialGlow );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
-
-    model.geometry.vertices[i].x += THREE.Math.randFloatSpread( m );
-    model.geometry.vertices[i].y += THREE.Math.randFloatSpread( m );
-    model.geometry.vertices[i].z += THREE.Math.randFloatSpread( m );
+    model.geometry.vertices[i].x += THREE.Math.randFloatSpread( irregularity );
+    model.geometry.vertices[i].y += THREE.Math.randFloatSpread( irregularity );
+    model.geometry.vertices[i].z += THREE.Math.randFloatSpread( irregularity );
   }
 
   for( i = 0; i < modelGlow.geometry.vertices.length; i = i + 3 ) {
-    modelGlow.geometry.vertices[i].x += THREE.Math.randFloatSpread( 1.5*m );
-    modelGlow.geometry.vertices[i].y += THREE.Math.randFloatSpread( 1.5*m );
-    modelGlow.geometry.vertices[i].z += THREE.Math.randFloatSpread( 1.5*m );
+    modelGlow.geometry.vertices[i].x += THREE.Math.randFloatSpread( irregularityGlow );
+    modelGlow.geometry.vertices[i].y += THREE.Math.randFloatSpread( irregularityGlow );
+    modelGlow.geometry.vertices[i].z += THREE.Math.randFloatSpread( irregularityGlow );
   }
 
-  model.position.x = 0;
-  model.position.y = 0;
-  model.position.z = 0;
-
-  modelGlow.position.x = 0;
-  modelGlow.position.y = 0;
-  modelGlow.position.z = 0;
-
   model.add(modelGlow);
-  var p = new planet(1, [0,0,0], [model.position.x, model.position.y, model.position.z], model);
-
+  var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3());
   system.push(p);
-  p.add2scene(scene);
+  scene.add(model);
 
-  console.log('Added sun');
+  console.log('Sun ' + system.length + ' created');
 }
 
-function sunSpin() {
-	system[0].model.rotateX(0.01);
-  system[0].model.rotateY(0.003);
+// SPINS THE SUN
+function spinSun() {
+
 }

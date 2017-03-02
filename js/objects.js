@@ -1,20 +1,10 @@
 class planet {
 
-  constructor(ma, v, p, mod) {
+  constructor(m, v, p) {
 
-    this.mass = ma;
+    this.mass = m;
     this.velocity= v;
-    this.pos = p;
-    this.force = [0, 0, 0];
-    this.model = mod;
-
-    this.add2scene = function (scene) {
-      scene.add(mod);
-    }
-
-    this.updatePos = function () {
-      this.model.position = pos;
-
-    }
+    this.position = p;
+    this.force = new THREE.Vector3();
   }
 }

@@ -3,47 +3,40 @@ var system = [];
 var G = 6.674*10^11;
 
 function calcForce(planet1, planet2) {
-  var fX = planet2.pos[0] - planet1.pos[0];
-  var fY = planet2.pos[1] - planet1.pos[1];
-  var fZ = planet2.pos[2] - planet1.pos[2];
 
-  var d = Math.sqrt( fX*fX + fY*fY + fZ*fZ );
-
+  var force = new THREE.Vector3();
   var epsi = 20;
 
-  if(d < epsi) {
-    d = epsi;
+  var distance = planet1.position.distanceTo(planet2.position);
+
+  if( distance < epsi ) {
+    distance = epsi;
   }
 
-  var nfX = fX / d;
-  var nfY = fY / d;
-  var nfZ = fZ / d;
-  var fM = G * planet1.mass * planet2.mass / (d * d);
+  var magnitude = G * planet1.mass * planet2.mass / (distance * distance);
 
-  var f = [nfX*fM, nfY* fM, nfZ*fM];
+  force.subVectors( planet2.position, planet1.position ).normalize();
+  var vecMagnitude = new THREE.Vector3( magnitude, magnitude, magnitude );
+  force.multiply( vecMagnitude );
 
-  return f;
+  return force;
 }
 
-function uppdateForces() {
+function updateForces() {
 
   var forces = [];
 
   for(var i = 0; i < system.length; i++) {
-    forces.push([0, 0, 0]);
+    forces.push( new THREE.Vector3() );
   }
 
   for(var i = 0; i < system.length-1; i++) {
     for(var j = i+1; j < system.length; j++) {
 
-      forces[i][0] += calcForce(system[i], system[j])[0];
-      forces[j][0] += calcForce(system[j], system[i])[0];
+      var force = new calcForce(system[i], system[j]);
+      forces[i].add( force );
+      forces[j].add( force.negate() );
 
-      forces[i][1] += calcForce(system[i], system[j])[1];
-      forces[j][1] += calcForce(system[j], system[i])[1];
-
-      forces[i][2] += calcForce(system[i], system[j])[2];
-      forces[j][2] += calcForce(system[j], system[i])[2];
     }
 
     system[i].force = forces[i];
@@ -54,36 +47,36 @@ function uppdateForces() {
 
 function euler(input, func) {
 
-  var x = func[0] * stepLength + input[0];
-  var y = func[1] * stepLength + input[1];
-  var z = func[2] * stepLength + input[2];
+  var output = new THREE.Vector3();
+  var vecStepLength = new THREE.Vector3( stepLength, stepLength, stepLength );
 
-  return [x, y, z];
+  output.multiplyVectors( func, vecStepLength ).add( input );
+
+  return output;
 }
 
-function uppdatePositions() {
+function updatePositions() {
 
   for(var i = 0; i < system.length; i++) {
 
-    var x = system[i].force[0]/system[i].mass;
-    var y = system[i].force[1]/system[i].mass;
-    var z = system[i].force[2]/system[i].mass;
+    var forceFunc = new THREE.Vector3();
+    forceFunc = system[i].force.divide( new THREE.Vector3( system[i].mass, system[i].mass, system[i].mass ));
 
-    system[i].velocity = euler(system[i].velocity, [x, y, z]);
-    system[i].pos = euler(system[i].pos, system[i].velocity);
+    system[i].velocity = euler(system[i].velocity, forceFunc);
+    system[i].position = euler(system[i].position, system[i].velocity);
 
-    system[i].model.position.x = system[i].pos[0];
-    system[i].model.position.y = system[i].pos[1];
-    system[i].model.position.z = system[i].pos[2];
+    scene.children[i+3].position.copy( system[i].position );
 
-/*
-    if(Math.abs(system2[i].pos) > controls.maxDistance)  {
-      system2.remove(system2[i]);
-    }*/
-  }
+    // Ta bort planet function?
+  } 
+  sunLight.position.copy( system[0].position );
+    // Kolla position -> ta bort planet
 }
 
-function centerOfMass() {
+function CenterOfMass() {
+/*
+
+  ÖVERSÄTT TILL THREE VECTORS
 
   var com = [0, 0, 0];
 
@@ -104,9 +97,11 @@ function centerOfMass() {
     den = 0;
   }
   return com;
+*/
 }
 
-function initialVelocity() {
+
+/*function initialVelocity() {
 	// make sure system[0] is the sun and not the sunGlow
   var velocity = [0, 0 ,0];
   var m = system[0].mass + system[system.length-1].mass;
@@ -147,4 +142,26 @@ function initialVelocity() {
 
 
   return velocity;
+*/
+function initialVelocity( mass, planetPosition ) {
+
+  var startVelocity = new THREE.Vector3();
+
+  var totMass = system[0].mass + mass;
+  var distance = system[0].position.distanceTo( planetPosition );
+  var v = Math.sqrt( G*totMass/distance );
+
+  var direction = new THREE.Vector3( THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1));
+  direction.projectOnPlane( camera.position ).normalize();
+
+  var vecV = new THREE.Vector3( v, v, v );
+  startVelocity.multiplyVectors( direction, vecV );
+
+  return startVelocity;
+}
+
+function removePlanet(n) {
+
+  scene.remove( scene.children[n+3] );
+  system.splice( n );
 }

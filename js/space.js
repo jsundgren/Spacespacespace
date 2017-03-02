@@ -1,9 +1,17 @@
-var renderer, scene, camera, point, amblight, controls, stats;
+var renderer, scene, camera, sunLight, controls, stats;
 var mouseX = 0, mouseY = 0;
 var stepLength = 0.1;
 
 init();
 animate();
+
+/*
+	scene.children[n]
+	0: något
+	1: något
+	2: bakgrunden
+	3: solen
+*/
 
 function init() {
 
@@ -15,17 +23,17 @@ function init() {
 
 	// CREATE SCENE & CAMERA
 	scene = new THREE.Scene();
-	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 2000 );
+	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 4000 );
 	camera.position.set(0, 0, -200);
 
 	// CREATE LIGHT SOURCES
-	sun = new THREE.PointLight(0xffffff, 1, 300, 2);
-	sun.position.set(0,0,0);
-	scene.add(sun);
-	amblight = new THREE.AmbientLight(0xffffff, 0.1);
-	scene.add(amblight);
+	sunLight = new THREE.PointLight(0xffffff, 1, 300, 2);
+	sunLight.position.set(0,0,0);
+	scene.add(sunLight);
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+	scene.add(ambientLight);
 
-  	// CAMERA CONTROLS
+	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
 	controls.dampingFactor = 0.9;
@@ -46,31 +54,30 @@ function init() {
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	document.addEventListener( 'mouseover', onDocumentMouseMove, false );
 
-
-	//Space background is a large sphere
-  	var spacesphereGeo = new THREE.SphereGeometry(1000,32,32);
-  	var spacesphereMat = new THREE.MeshPhongMaterial();
-  	var spacetex = THREE.ImageUtils.loadTexture('img/space.png');
-  	spacetex.wrapS = THREE.RepeatWrapping;
-  	spacetex.wrapT = THREE.RepeatWrapping;
-  	spacesphereMat.map = spacetex;
-  	spacesphereMat.side = THREE.BackSide;
-  	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
-  	scene.add(spacesphere);
+	// BACKGROUND
+	var spacesphereGeo = new THREE.SphereGeometry(controls.maxDistance*2, 32, 32);
+	var spacesphereMat = new THREE.MeshPhongMaterial();
+	var spacetex = THREE.ImageUtils.loadTexture('img/space.png');
+	spacetex.wrapS = THREE.RepeatWrapping;
+	spacetex.wrapT = THREE.RepeatWrapping;
+	spacesphereMat.map = spacetex;
+	spacesphereMat.side = THREE.BackSide;
+	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
+	scene.add(spacesphere);
 
 	addSun();
 }
 
-	// RENDER ANIMATION
-	function animate () {
+// RENDER ANIMATION
+function animate () {
 
-		requestAnimationFrame( animate );
+	requestAnimationFrame( animate );
 
-		sunSpin();
-		uppdateForces();
-		uppdatePositions();
-		displayInfo();
+	updateForces();
+	updatePositions();
+	//display();
 
+<<<<<<< HEAD
 		//camera.position.x = centerOfMass()[0];
 		//camera.position.y = centerOfMass()[1];
 		//camera.position.z = centerOfMass()[2] - 200;
@@ -79,3 +86,9 @@ function init() {
 		renderer.render( scene, camera );
 		stats.end();
 	}
+=======
+	stats.begin();
+	renderer.render( scene, camera );
+	stats.end();
+}
+>>>>>>> fabf9183ba53fb50e47578ff27141d62d8c98610
