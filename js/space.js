@@ -77,7 +77,6 @@ function animate () {
 	updatePositions();
 	//display();
 
-<<<<<<< HEAD
 		//camera.position.x = centerOfMass()[0];
 		//camera.position.y = centerOfMass()[1];
 		//camera.position.z = centerOfMass()[2] - 200;
@@ -85,10 +84,5 @@ function animate () {
 		stats.begin();
 		renderer.render( scene, camera );
 		stats.end();
-	}
-=======
-	stats.begin();
-	renderer.render( scene, camera );
-	stats.end();
 }
->>>>>>> fabf9183ba53fb50e47578ff27141d62d8c98610
+
