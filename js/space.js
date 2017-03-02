@@ -57,6 +57,7 @@ function init() {
 	// BACKGROUND
 	var spacesphereGeo = new THREE.SphereGeometry(controls.maxDistance*2, 32, 32);
 	var spacesphereMat = new THREE.MeshPhongMaterial();
+	// ÄNDRA TILL NYARE FUNKTION: TEXTURELOADER()
 	var spacetex = THREE.ImageUtils.loadTexture('img/space.png');
 	spacetex.wrapS = THREE.RepeatWrapping;
 	spacetex.wrapT = THREE.RepeatWrapping;

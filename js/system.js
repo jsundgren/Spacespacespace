@@ -16,8 +16,7 @@ function calcForce(planet1, planet2) {
   var magnitude = G * planet1.mass * planet2.mass / (distance * distance);
 
   force.subVectors( planet2.position, planet1.position ).normalize();
-  var vecMagnitude = new THREE.Vector3( magnitude, magnitude, magnitude );
-  force.multiply( vecMagnitude );
+  force.multiplyScalar( magnitude );
 
   return force;
 }
@@ -25,7 +24,7 @@ function calcForce(planet1, planet2) {
 function updateForces() {
 
   var forces = [];
-
+  // Kolla in i mån av tid för optimering
   for(var i = 0; i < system.length; i++) {
     forces.push( new THREE.Vector3() );
   }
@@ -49,7 +48,7 @@ function euler(input, func) {
 
   var output = new THREE.Vector3();
   var vecStepLength = new THREE.Vector3( stepLength, stepLength, stepLength );
-
+  // Kolla in i mån av tid
   output.multiplyVectors( func, vecStepLength ).add( input );
 
   return output;
@@ -60,7 +59,7 @@ function updatePositions() {
   for(var i = 0; i < system.length; i++) {
 
     var forceFunc = new THREE.Vector3();
-    forceFunc = system[i].force.divide( new THREE.Vector3( system[i].mass, system[i].mass, system[i].mass ));
+    forceFunc = system[i].force.divideScalar( system[i].mass );
 
     system[i].velocity = euler(system[i].velocity, forceFunc);
     system[i].position = euler(system[i].position, system[i].velocity);
@@ -143,6 +142,8 @@ function CenterOfMass() {
 
   return velocity;
 */
+
+// KOLLA IN DENNA SÅ DEN BLIR RÄTT
 function initialVelocity( mass, planetPosition ) {
 
   var startVelocity = new THREE.Vector3();

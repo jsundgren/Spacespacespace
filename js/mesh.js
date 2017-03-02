@@ -17,6 +17,7 @@ function addPlanet() {
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
 
+  // ÄNDRA TILL PASTELL-FÄRGSKALA
   for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
     geometry.faces[i].color.setHex( color );
   }
@@ -27,9 +28,8 @@ function addPlanet() {
   var model = new THREE.Mesh( geometry, material );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
-    model.geometry.vertices[i].x += THREE.Math.randFloatSpread( irregularity );
-    model.geometry.vertices[i].y += THREE.Math.randFloatSpread( irregularity );
-    model.geometry.vertices[i].z += THREE.Math.randFloatSpread( irregularity );
+    model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ), 
+      THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
   }
 
   if ( Math.random() < 0.3 ) {
@@ -43,7 +43,7 @@ function addPlanet() {
   console.log('Planet ' + system.length + ' created');
 }
 
-// CREATES A RING
+// CREATES A RING (MINSKA ANTALET RINGAR?)
 function createRing( radiusPlanet ){
 
   var radiusRing = radiusPlanet + THREE.Math.randFloat(3, 6);
@@ -69,7 +69,7 @@ function addSun() {
   var mass = 100;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0xffff2d } );
+  var material = new THREE.MeshPhongMaterial( { color: 0xffff2d } );
   material.shading = THREE.FlatShading;
 
   var geometryGlow = new THREE.IcosahedronGeometry( radiusGlow, 3 );
@@ -80,15 +80,13 @@ function addSun() {
   var modelGlow = new THREE.Mesh( geometryGlow  , materialGlow );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
-    model.geometry.vertices[i].x += THREE.Math.randFloatSpread( irregularity );
-    model.geometry.vertices[i].y += THREE.Math.randFloatSpread( irregularity );
-    model.geometry.vertices[i].z += THREE.Math.randFloatSpread( irregularity );
+    model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ), 
+      THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
   }
 
   for( i = 0; i < modelGlow.geometry.vertices.length; i = i + 3 ) {
-    modelGlow.geometry.vertices[i].x += THREE.Math.randFloatSpread( irregularityGlow );
-    modelGlow.geometry.vertices[i].y += THREE.Math.randFloatSpread( irregularityGlow );
-    modelGlow.geometry.vertices[i].z += THREE.Math.randFloatSpread( irregularityGlow );
+    modelGlow.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularityGlow ), 
+      THREE.Math.randFloatSpread( irregularityGlow ),THREE.Math.randFloatSpread( irregularityGlow )));
   }
 
   model.add(modelGlow);
