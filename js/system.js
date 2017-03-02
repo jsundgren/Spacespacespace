@@ -107,7 +107,7 @@ function centerOfMass() {
 }
 
 function initialVelocity() {
-
+	// make sure system[0] is the sun and not the sunGlow
   var velocity = [0, 0 ,0];
   var m = system[0].mass + system[system.length-1].mass;
   var rX = system[0].pos[0] - system[system.length-1].pos[0];
@@ -115,6 +115,36 @@ function initialVelocity() {
   var rZ = system[0].pos[2] - system[system.length-1].pos[2];
   var r = Math.sqrt( rX*rX + rY*rY + rZ*rZ );
 
-  velocity[0] = Math.sqrt(G*m/r);
+  //var totMagnitud = Math.sqrt(G*m/r);
+  velocity[0] =  Math.sqrt(G*m/r);
+
+  //
+  //defineing a plane perpendicular to the sun and randomizes vectors on the plan for the planets to be launched at.
+  //
+
+  // 1. Sun.pos - camera.pos to get normal vector. May use COM.pos - earth.pos, or COM.pos - camera.pos, or sun.pos - earth.pos
+  var normalVector = new THREE.Vector3();
+  normalVector.setX(system[0].pos[0] - camera.position.getComponent(0));	//system[0].pos should be a threeJS Vector3
+  normalVector.setY(system[0].pos[1] - camera.position.getComponent(1));
+  normalVector.setZ(system[0].pos[2] - camera.position.getComponent(2));
+
+  console.log(normalVector);
+  // 2. normalize normal vector
+  normalVector.normalize();
+  console.log(normalVector);
+  
+  // 3. define the plane
+
+
+
+  // 4. randomize a vector on the plane
+
+  // 5. destribute totMagnitud to randVec
+  // 6. set velocity[0] = randVec.x * Math.sqrt(G*m/r);
+  // 	set velocity[1] = randVec.y * Math.sqrt(G*m/r);
+  //	set velocity[2] = randVec.z * Math.sqrt(G*m/r);
+  
+
+
   return velocity;
 }

@@ -1,6 +1,6 @@
 var renderer, scene, camera, point, amblight, controls, stats;
 var mouseX = 0, mouseY = 0;
-var stepLength = 1;
+var stepLength = 0.1;
 
 init();
 animate();
@@ -71,9 +71,9 @@ function init() {
 		uppdatePositions();
 		displayInfo();
 
-		camera.position.x = centerOfMass()[0];
-		camera.position.y = centerOfMass()[1];
-		camera.position.z = centerOfMass()[2] - 200;
+		//camera.position.x = centerOfMass()[0];
+		//camera.position.y = centerOfMass()[1];
+		//camera.position.z = centerOfMass()[2] - 200;
 
 		stats.begin();
 		renderer.render( scene, camera );
