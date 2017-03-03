@@ -6,11 +6,11 @@ init();
 animate();
 
 /*
-	scene.children[n]
-	0: något
-	1: något
-	2: bakgrunden
-	3: solen
+scene.children[n]
+0: något
+1: något
+2: bakgrunden
+3: solen
 */
 
 function init() {
@@ -76,14 +76,8 @@ function animate () {
 
 	updateForces();
 	updatePositions();
-	//display();
 
-		//camera.position.x = centerOfMass()[0];
-		//camera.position.y = centerOfMass()[1];
-		//camera.position.z = centerOfMass()[2] - 200;
-
-		stats.begin();
-		renderer.render( scene, camera );
-		stats.end();
+	stats.begin();
+	renderer.render( scene, camera );
+	stats.end();
 }
-
