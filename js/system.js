@@ -153,6 +153,7 @@ function initialVelocity( mass, planetPosition ) {
   var v = Math.sqrt( G*totMass/distance );
 
   var direction = new THREE.Vector3( THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1));
+  //vi kommer inte behöva ändra på (camera.position) här under om vi updaterar camperapositionen så att vi alltid kollar på solen.
   direction.projectOnPlane( camera.position ).normalize();
 
   var vecV = new THREE.Vector3( v, v, v );
