@@ -17,11 +17,13 @@ function onDocumentMouseMove( event ) {
 // PRESSING SPACE BAR
 function onDocumentKeyDown( event ) {
 
-  if ( event.keyCode !== 32 ) {
-    return;
-  }
+  if ( event.keyCode == 32 ) {
+    addPlanet();
 
-  addPlanet();
+  } else if ( event.keyCode == 81 ){
+    resetSun();
+
+  }
 }
 
 function display() {

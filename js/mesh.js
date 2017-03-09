@@ -28,7 +28,7 @@ function addPlanet() {
   var model = new THREE.Mesh( geometry, material );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
-    model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ), 
+    model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ),
       THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
   }
 
@@ -80,12 +80,12 @@ function addSun() {
   var modelGlow = new THREE.Mesh( geometryGlow  , materialGlow );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
-    model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ), 
+    model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ),
       THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
   }
 
   for( i = 0; i < modelGlow.geometry.vertices.length; i = i + 3 ) {
-    modelGlow.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularityGlow ), 
+    modelGlow.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularityGlow ),
       THREE.Math.randFloatSpread( irregularityGlow ),THREE.Math.randFloatSpread( irregularityGlow )));
   }
 
