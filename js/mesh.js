@@ -87,7 +87,6 @@ function addSun() {
 
   addSunShine( radius );
 
-  //model.add(modelGlow);
 
   var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3());
   system.push(p);
@@ -124,3 +123,4 @@ function sunShinePulse( radiusSun ) {
   sunShine.rotateY(0.002);
   sunShine.rotateZ(0.003);
 }
+

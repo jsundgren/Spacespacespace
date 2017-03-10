@@ -79,7 +79,6 @@ function updatePositions() {
     system[i].velocity = euler(system[i].velocity, forceFunc);
     system[i].position = euler(system[i].position, system[i].velocity);
 
-
     scene.children[i+5].position.copy( system[i].position );
   }
 

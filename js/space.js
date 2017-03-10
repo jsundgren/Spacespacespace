@@ -71,8 +71,6 @@ function init() {
 	scene.add(spacesphere);
 
 
-	scene.add( new THREE.PointLightHelper( sunGlow, 22 ) );
-
 	addSun();
 }
 
@@ -80,6 +78,7 @@ function init() {
 function animate () {
 
 	requestAnimationFrame( animate );
+
 	sunShinePulse();
 	updateForces();
 	updatePositions();
