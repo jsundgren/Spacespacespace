@@ -18,7 +18,7 @@ function onDocumentMouseMove( event ) {
 function onDocumentKeyDown( event ) {
 
   // Blackspace
-  if ( event.keyCode == 32 ) {
+  if ( event.keyCode == 66 ) {
 
     if(system.length+1 > 10){
       console.log('No planet added');
