@@ -99,12 +99,12 @@ function addSun() {
 
 function addSunShine( radiusSun ) {
 
-  var radius = radiusSun + 10;
+  var radius = radiusSun + 6;
   var transparency = 0.1;
-  var irregularity = 5;
+  var irregularity = 10;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 3 );
-  var material = new THREE.MeshBasicMaterial( { color: 0xea812a, transparent: true, opacity: transparency, side: THREE.DoubleSide} );
+  var material = new THREE.MeshBasicMaterial( { color: 0xff772d, transparent: true, opacity: transparency, side: THREE.DoubleSide} );	//0xea812a tyckte jag blev för brun
 
   sunShine = new THREE.Mesh( geometry  , material );
   sunShine.shading = THREE.FlatShading;
@@ -119,8 +119,8 @@ function addSunShine( radiusSun ) {
 
 function sunShinePulse( radiusSun ) {
 
-  sunShine.rotateX(0.001);
-  sunShine.rotateY(0.002);
+  sunShine.rotateX(0.003);
+  sunShine.rotateY(0.003);
   sunShine.rotateZ(0.003);
 }
 
