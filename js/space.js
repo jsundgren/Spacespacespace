@@ -1,4 +1,4 @@
-var renderer, scene, camera, sunLight, sunGlow, controls, stats;
+var renderer, scene, camera, sunLightOut, sunLightIn, sunShine, controls, stats;
 var mouseX = 0, mouseY = 0;
 var stepLength = 0.1;
 
@@ -27,15 +27,14 @@ function init() {
 	camera.position.set(0, 0, -200);
 
 	// CREATE LIGHT SOURCES
-	sunLight = new THREE.PointLight(0xffffff, 1, 2000, 2);
-	sunLight.position.set(0,0,0);
-	scene.add(sunLight);
-	ambientLight = new THREE.AmbientLight(0xffffff, 0.05);
+	sunLightOut = new THREE.PointLight(0xffffff, 1, 2000, 2);
+	sunLightOut.position.set(0,0,0);
+	scene.add(sunLightOut);
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.02);
 	scene.add(ambientLight);
-
-	sunGlow = new THREE.PointLight(0xffffff, 0.8, 1000, 1);
-	sunGlow.position.set(0,0,0);
-	scene.add(sunGlow);
+	sunLightIn = new THREE.PointLight(0xffffff, 1, 1000, 1);
+	sunLightIn.position.set(0,0,0);
+	scene.add(sunLightIn);
 
 	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -70,8 +69,6 @@ function init() {
 	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
 	scene.add(spacesphere);
 
-	scene.add( new THREE.PointLightHelper( sunGlow, 22 ) );
-
 	addSun();
 }
 
@@ -80,6 +77,7 @@ function animate () {
 
 	requestAnimationFrame( animate );
 
+	sunShinePulse();
 	updateForces();
 	updatePositions();
 

@@ -65,36 +65,52 @@ function addSun() {
 
   var radius = 20;
   var irregularity = 1;
-  //var irregularityGlow = 10;
-  //var radiusGlow = 25;
-  //var transparencyGlow = 0.1;
   var mass = 20;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
   var material = new THREE.MeshPhongMaterial( { color: 0xffff2d } );
   material.shading = THREE.FlatShading;
 
-  //var geometryGlow = new THREE.IcosahedronGeometry( radiusGlow, 3 );
-  //var materialGlow = new THREE.MeshBasicMaterial( { color: 0xea812a, transparent: true, opacity: transparencyGlow, side: THREE.DoubleSide} );
-  //materialGlow.shading = THREE.FlatShading;
-
   var model = new THREE.Mesh( geometry, material );
-  //var modelGlow = new THREE.Mesh( geometryGlow  , materialGlow );
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
     model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ),
       THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
   }
 
-  //for( i = 0; i < modelGlow.geometry.vertices.length; i = i + 3 ) {
-  //  modelGlow.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularityGlow ),
-  //    THREE.Math.randFloatSpread( irregularityGlow ),THREE.Math.randFloatSpread( irregularityGlow )));
-  //}
+  addSunShine( radius );
 
-  //model.add(modelGlow);
   var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3());
   system.push(p);
   scene.add(model);
 
+
   console.log('Sun ' + system.length + ' created');
+}
+
+function addSunShine( radiusSun ) {
+
+  var radius = radiusSun + 10;
+  var transparency = 0.1;
+  var irregularity = 5;
+
+  var geometry = new THREE.IcosahedronGeometry( radius, 3 );
+  var material = new THREE.MeshBasicMaterial( { color: 0xea812a, transparent: true, opacity: transparency, side: THREE.DoubleSide} );
+
+  sunShine = new THREE.Mesh( geometry  , material );
+  sunShine.shading = THREE.FlatShading;
+
+  for( i = 0; i < sunShine.geometry.vertices.length; i = i + 3 ) {
+    sunShine.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ),
+    THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
+  }
+
+  scene.add(sunShine);
+}
+
+function sunShinePulse( radiusSun ) {
+
+  sunShine.rotateX(0.001);
+  sunShine.rotateY(0.002);
+  sunShine.rotateZ(0.003);
 }

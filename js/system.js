@@ -82,16 +82,14 @@ function updatePositions() {
     scene.children[i+5].position.copy( system[i].position );
   }
 
-  //var posLight = new THREE.Vector3().subVectors( camera.position, system[0].position ).normalize().multiplyScalar(30);
+  var posLight = new THREE.Vector3().copy( system[0].position );
+  var tmp = new THREE.Vector3().subVectors( camera.position, posLight );
+  tmp.normalize().multiplyScalar(40);
+  posLight.add(tmp);
 
-  var posLight = new THREE.Vector3().copy(system[0].position);
-  var tmp = new THREE.Vector3().subVectors( camera.position, posLight);
-
-  //console.log(Math.round(posLight.x), Math.round(posLight.y), Math.round(posLight.z));
-  //console.log(tmp);
-
-  sunGlow.position.copy( posLight );
-  sunLight.position.copy( system[0].position );
+  sunLightIn.position.copy( posLight );
+  sunLightOut.position.copy( system[0].position );
+  sunShine.position.copy( system[0].position );
 }
 
 function CenterOfMass() {

@@ -19,6 +19,11 @@ function onDocumentKeyDown( event ) {
 
   // Blackspace
   if ( event.keyCode == 32 ) {
+
+    if(system.length+1 > 100){
+      console.log('No planet added');
+      return;
+    }
     addPlanet();
   }
   // Q
