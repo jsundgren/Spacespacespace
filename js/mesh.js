@@ -41,7 +41,7 @@ function addPlanet() {
     model.add(createRing( radius ));
   }
 
-  var p = new planet( mass, initialVelocity( mass, startPosition ), startPosition );
+  var p = new planet( mass, initialVelocity( mass, startPosition ), startPosition, model, addLine( startPosition, color));
 
   system.push(p);
   scene.add(model);
@@ -88,15 +88,13 @@ function addSun() {
 
   addSunShine( radius );
 
-
-  var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3());
+  var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3(), model, addLine(new THREE.Vector3(), 0xffff2d));
   system.push(p);
   scene.add(model);
 
 
   console.log('Sun ' + system.length + ' created');
 }
-
 
 function addSunShine( radiusSun ) {
 
@@ -125,3 +123,40 @@ function sunShinePulse( radiusSun ) {
   sunShine.rotateZ(0.003);
 }
 
+function updateLine( n, c ) {
+
+  var verticesLine = system[n].line.geometry.vertices;
+  verticesLine.push( system[n].position );
+
+  var materialLine = new THREE.LineBasicMaterial({
+    color: c
+  });
+
+  var geometryLine = new THREE.Geometry();
+  geometryLine.vertices = verticesLine;
+
+  scene.remove(system[n].line);
+
+  system[n].line = new THREE.Line( geometryLine, materialLine );
+
+  scene.add( system[n].line );
+
+  //lines[n-1].geometry.verticesNeedUpdate = true;
+}
+
+function addLine( s, c ) {
+
+  var material = new THREE.LineBasicMaterial({
+    color: c
+  });
+
+  var geometry = new THREE.Geometry();
+  geometry.vertices.push(
+  	s
+  );
+
+  var line = new THREE.Line( geometry, material );
+  scene.add( line );
+
+  return line;
+}
