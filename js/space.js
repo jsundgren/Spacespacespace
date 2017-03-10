@@ -37,6 +37,7 @@ function init() {
 	sunGlow.position.set(0,0,0);
 	scene.add(sunGlow);
 
+
 	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
@@ -47,7 +48,7 @@ function init() {
 
 	// STATS
 	stats = new Stats();
-	document.body.appendChild( stats.dom );
+	document.getElementById("topbar").appendChild( stats.dom );
 	stats.domElement.style.position = 'absolute';
 	stats.domElement.style.left = '20px';
 	stats.domElement.style.top = '10px';
@@ -70,6 +71,7 @@ function init() {
 	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
 	scene.add(spacesphere);
 
+
 	addSun();
 }
 
@@ -77,9 +79,9 @@ function init() {
 function animate () {
 
 	requestAnimationFrame( animate );
-
 	updateForces();
 	updatePositions();
+
 
 	stats.begin();
 	renderer.render( scene, camera );

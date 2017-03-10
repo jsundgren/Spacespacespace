@@ -6,5 +6,6 @@ class planet {
     this.velocity= v;
     this.position = p;
     this.force = new THREE.Vector3();
+
   }
 }
