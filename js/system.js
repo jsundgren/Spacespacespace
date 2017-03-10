@@ -1,5 +1,5 @@
 var system = [];
-var x = false;
+var MoveToCenter = true;
 var G = 6.674*10^11;
 
 function calcForce(planet1, planet2) {
@@ -56,19 +56,19 @@ function euler(input, func) {
 
 function updatePositions() {
 
-  if ( x ) {
+  if ( MoveToCenter ) {
 
-    if ( system[0].position.length() < 1) {
-      x = false;
-    }
-
-    var forandring = 0.07;
+    var forandring = 0.1;
     var vecForandring = new THREE.Vector3( forandring, forandring, forandring );
     var tmp = new THREE.Vector3();
 
-    tmp.multiplyVectors( system[0].position, vecForandring ).negate();
-    system[0].position.add(tmp);
-    scene.children[3].position.copy( system[0].position );
+    tmp.multiplyVectors( CenterOfMass(), vecForandring ).negate();
+
+    for(var i = 0; i < system.length; i++) {
+
+      system[i].position.add(tmp);
+      scene.children[i+3].position.copy( system[i].position );
+    }
   }
 
   for(var i = 0; i < system.length; i++) {
@@ -79,84 +79,39 @@ function updatePositions() {
     system[i].velocity = euler(system[i].velocity, forceFunc);
     system[i].position = euler(system[i].position, system[i].velocity);
 
-    scene.children[i+3].position.copy( system[i].position );
+    scene.children[i+4].position.copy( system[i].position );
 
-    // Ta bort planet function?
+    if ( system[i].position.length() > 2000 ) {
+    	removePlanet(i);
+    }
   }
+
+  //var posLight = new THREE.Vector3().subVectors( camera.position, system[0].position ).normalize().multiplyScalar(30);
+  var posLight = new THREE.Vector3().copy(system[0].position);
+
+  posLight.add( camera.position );
+
+  sunGlow.position.copy( posLight );
   sunLight.position.copy( system[0].position );
-  // Kolla position -> ta bort planet
 }
 
 function CenterOfMass() {
-  /*
 
-  ÖVERSÄTT TILL THREE VECTORS
+    var com = new THREE.Vector3();
+    var tmp = new THREE.Vector3();
+    var totMass = 0;
 
-  var com = [0, 0, 0];
+    for (var i = 0; i < system.length; i++) {
 
-  if (system.length < 2){
-  return com;
+      tmp.copy(system[i].position);
+      com.add(tmp.multiplyScalar(system[i].mass));
+      totMass += system[i].mass;
+    }
+
+    com.divideScalar(totMass);
+
+    return com;
 }
-
-var num = 0;
-var den = 0;
-
-for(var i = 0; i < 3; i++){
-for( var j = 0; j < system.length; j++){
-num += system[j].mass * system[j].pos[i];
-den += system[j].mass;
-com[i] = num / den;
-}
-num = 0;
-den = 0;
-}
-return com;
-*/
-}
-
-
-/*function initialVelocity() {
-// make sure system[0] is the sun and not the sunGlow
-var velocity = [0, 0 ,0];
-var m = system[0].mass + system[system.length-1].mass;
-var rX = system[0].pos[0] - system[system.length-1].pos[0];
-var rY = system[0].pos[1] - system[system.length-1].pos[1];
-var rZ = system[0].pos[2] - system[system.length-1].pos[2];
-var r = Math.sqrt( rX*rX + rY*rY + rZ*rZ );
-
-//var totMagnitud = Math.sqrt(G*m/r);
-velocity[0] =  Math.sqrt(G*m/r);
-
-//
-//defineing a plane perpendicular to the sun and randomizes vectors on the plan for the planets to be launched at.
-//
-
-// 1. Sun.pos - camera.pos to get normal vector. May use COM.pos - earth.pos, or COM.pos - camera.pos, or sun.pos - earth.pos
-var normalVector = new THREE.Vector3();
-normalVector.setX(system[0].pos[0] - camera.position.getComponent(0));	//system[0].pos should be a threeJS Vector3
-normalVector.setY(system[0].pos[1] - camera.position.getComponent(1));
-normalVector.setZ(system[0].pos[2] - camera.position.getComponent(2));
-
-console.log(normalVector);
-// 2. normalize normal vector
-normalVector.normalize();
-console.log(normalVector);
-
-// 3. define the plane
-
-
-
-// 4. randomize a vector on the plane
-
-// 5. destribute totMagnitud to randVec
-// 6. set velocity[0] = randVec.x * Math.sqrt(G*m/r);
-// 	set velocity[1] = randVec.y * Math.sqrt(G*m/r);
-//	set velocity[2] = randVec.z * Math.sqrt(G*m/r);
-
-
-
-return velocity;
-*/
 
 // KOLLA IN DENNA SÅ DEN BLIR RÄTT
 function initialVelocity( mass, planetPosition ) {
@@ -183,7 +138,14 @@ function removePlanet(n) {
   system.splice( n );
 }
 
-function resetSun(){
+function CentralizeToggle(){
 
-  x = true;
+  console.log('Centralize: ' + !MoveToCenter);
+
+  if (MoveToCenter) {
+    MoveToCenter = false;
+
+  } else {
+    MoveToCenter = true;
+  }
 }

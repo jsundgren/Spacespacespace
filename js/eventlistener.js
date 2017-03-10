@@ -17,15 +17,12 @@ function onDocumentMouseMove( event ) {
 // PRESSING SPACE BAR
 function onDocumentKeyDown( event ) {
 
+  // Blackspace
   if ( event.keyCode == 32 ) {
     addPlanet();
-
-  } else if ( event.keyCode == 81 ){
-    resetSun();
-
   }
-}
-
-function display() {
-
+  // Q
+  else if ( event.keyCode == 81 ){
+    CentralizeToggle();
+  }
 }

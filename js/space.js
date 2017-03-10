@@ -1,4 +1,4 @@
-var renderer, scene, camera, sunLight, controls, stats;
+var renderer, scene, camera, sunLight, sunGlow, controls, stats;
 var mouseX = 0, mouseY = 0;
 var stepLength = 0.1;
 
@@ -27,11 +27,15 @@ function init() {
 	camera.position.set(0, 0, -200);
 
 	// CREATE LIGHT SOURCES
-	sunLight = new THREE.PointLight(0xffffff, 1, 300, 2);
+	sunLight = new THREE.PointLight(0xffffff, 1, 2000, 2);
 	sunLight.position.set(0,0,0);
 	scene.add(sunLight);
-	ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.05);
 	scene.add(ambientLight);
+
+	sunGlow = new THREE.PointLight(0xffffff, 0.8, 1000, 1);
+	sunGlow.position.set(0,0,0);
+	scene.add(sunGlow);
 
 	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
