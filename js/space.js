@@ -72,6 +72,8 @@ function init() {
 	scene.add(spacesphere);
 
 
+	scene.add( new THREE.PointLightHelper( sunGlow, 22 ) );
+
 	addSun();
 }
 
