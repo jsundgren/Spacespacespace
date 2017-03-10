@@ -7,11 +7,12 @@ function addPlanet() {
   var mass = THREE.Math.randFloat( 3, 10 );
 
   var spread = 30;
-  var range = 3;
+  var range = 1;
 
   var startPosition = new THREE.Vector3().copy( camera.position );
-  startPosition.divideScalar( range );
-  startPosition.add( new THREE.Vector3( THREE.Math.randFloatSpread( spread ), THREE.Math.randFloatSpread( spread ), THREE.Math.randFloatSpread( spread )));
+  var tmp = new THREE.Vector3().copy(startPosition);
+  tmp.negate().normalize().multiplyScalar(20);
+  startPosition.add(tmp);
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
 
@@ -65,7 +66,7 @@ function addSun() {
 
   var radius = 20;
   var irregularity = 1;
-  var mass = 20;
+  var mass = 180;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
   var material = new THREE.MeshPhongMaterial( { color: 0xffff2d } );

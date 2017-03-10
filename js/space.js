@@ -24,13 +24,13 @@ function init() {
 	// CREATE SCENE & CAMERA
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 4000 );
-	camera.position.set(0, 0, -200);
+	camera.position.set(0, 0, -300);
 
 	// CREATE LIGHT SOURCES
 	sunLightOut = new THREE.PointLight(0xffffff, 1, 2000, 2);
 	sunLightOut.position.set(0,0,0);
 	scene.add(sunLightOut);
-	ambientLight = new THREE.AmbientLight(0xffffff, 0.02);
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
 	scene.add(ambientLight);
 	sunLightIn = new THREE.PointLight(0xffffff, 1, 1000, 1);
 	sunLightIn.position.set(0,0,0);
