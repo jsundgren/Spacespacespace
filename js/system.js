@@ -143,4 +143,20 @@ function CentralizeToggle(){
   } else {
     MoveToCenter = true;
   }
+
+}
+
+function getColor() {
+    var white = THREE.Math.randInt(0, 2);
+
+    var red = Math.floor(THREE.Math.randFloat(0, 255));
+    var green = Math.floor(THREE.Math.randFloat(0, 255));
+    var blue  = Math.floor(THREE.Math.randFloat(0, 255));
+
+    var colors = [red, green, blue];
+    colors[white] = 255;
+
+    var col = new THREE.Color("rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")");
+
+    return col;
 }

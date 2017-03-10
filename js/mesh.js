@@ -17,9 +17,15 @@ function addPlanet() {
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
 
   // ÄNDRA TILL PASTELL-FÄRGSKALA
-  for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
+    /*for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
     geometry.faces[i].color.setHex( color );
-  }
+  }*/
+
+    var color = getColor();
+
+    for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
+        geometry.faces[i].color = color;
+    }
 
   var material = new THREE.MeshPhongMaterial( { color: color, vertexColors: THREE.VertexColors } );
   material.shading = THREE.FlatShading;
@@ -36,6 +42,7 @@ function addPlanet() {
   }
 
   var p = new planet( mass, initialVelocity( mass, startPosition ), startPosition );
+
   system.push(p);
   scene.add(model);
 
@@ -47,7 +54,7 @@ function createRing( radiusPlanet ){
 
   var radiusRing = radiusPlanet + THREE.Math.randFloat(8, 12);
   var thicknessRing = THREE.Math.randFloat(1.7, 2.3);
-  var colorRing = Math.random() * 0xffffff;
+  var colorRing = getColor();
 
   var geometryRing = new THREE.TorusGeometry(radiusRing, thicknessRing, 3, 11);
 
@@ -81,6 +88,7 @@ function addSun() {
 
   addSunShine( radius );
 
+
   var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3());
   system.push(p);
   scene.add(model);
@@ -88,6 +96,7 @@ function addSun() {
 
   console.log('Sun ' + system.length + ' created');
 }
+
 
 function addSunShine( radiusSun ) {
 
@@ -115,3 +124,4 @@ function sunShinePulse( radiusSun ) {
   sunShine.rotateY(0.002);
   sunShine.rotateZ(0.003);
 }
+
