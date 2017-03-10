@@ -70,6 +70,8 @@ function init() {
 	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
 	scene.add(spacesphere);
 
+	scene.add( new THREE.PointLightHelper( sunGlow, 22 ) );
+
 	addSun();
 }
 

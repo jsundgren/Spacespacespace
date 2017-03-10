@@ -67,7 +67,7 @@ function updatePositions() {
     for(var i = 0; i < system.length; i++) {
 
       system[i].position.add(tmp);
-      scene.children[i+3].position.copy( system[i].position );
+      scene.children[i+5].position.copy( system[i].position );
     }
   }
 
@@ -79,17 +79,16 @@ function updatePositions() {
     system[i].velocity = euler(system[i].velocity, forceFunc);
     system[i].position = euler(system[i].position, system[i].velocity);
 
-    scene.children[i+4].position.copy( system[i].position );
-
-    if ( system[i].position.length() > 2000 ) {
-    	removePlanet(i);
-    }
+    scene.children[i+5].position.copy( system[i].position );
   }
 
   //var posLight = new THREE.Vector3().subVectors( camera.position, system[0].position ).normalize().multiplyScalar(30);
-  var posLight = new THREE.Vector3().copy(system[0].position);
 
-  posLight.add( camera.position );
+  var posLight = new THREE.Vector3().copy(system[0].position);
+  var tmp = new THREE.Vector3().subVectors( camera.position, posLight);
+
+  //console.log(Math.round(posLight.x), Math.round(posLight.y), Math.round(posLight.z));
+  //console.log(tmp);
 
   sunGlow.position.copy( posLight );
   sunLight.position.copy( system[0].position );
@@ -134,8 +133,6 @@ function initialVelocity( mass, planetPosition ) {
 
 function removePlanet(n) {
 
-  scene.remove( scene.children[n+3] );
-  system.splice( n );
 }
 
 function CentralizeToggle(){
