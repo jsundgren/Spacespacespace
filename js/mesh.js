@@ -99,7 +99,7 @@ function addSun() {
 
 function addSunShine( radiusSun ) {
 
-  var radius = radiusSun + 10;
+  var radius = radiusSun + 2;
   var transparency = 0.1;
   var irregularity = 5;
 
