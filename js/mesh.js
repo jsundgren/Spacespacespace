@@ -7,11 +7,12 @@ function addPlanet() {
   var mass = THREE.Math.randFloat( 3, 10 );
 
   var spread = 30;
-  var range = 3;
+  var range = 1;
 
   var startPosition = new THREE.Vector3().copy( camera.position );
-  startPosition.divideScalar( range );
-  startPosition.add( new THREE.Vector3( THREE.Math.randFloatSpread( spread ), THREE.Math.randFloatSpread( spread ), THREE.Math.randFloatSpread( spread )));
+  var tmp = new THREE.Vector3().copy(startPosition);
+  tmp.negate().normalize().multiplyScalar(20);
+  startPosition.add(tmp);
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
 
@@ -40,7 +41,7 @@ function addPlanet() {
     model.add(createRing( radius ));
   }
 
-  var p = new planet( mass, initialVelocity( mass, startPosition ), startPosition );
+  var p = new planet( mass, initialVelocity( mass, startPosition ), startPosition, model, addLine( startPosition, color));
 
   system.push(p);
   scene.add(model);
@@ -72,7 +73,7 @@ function addSun() {
 
   var radius = 20;
   var irregularity = 1;
-  var mass = 20;
+  var mass = 180;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
   var material = new THREE.MeshPhongMaterial( { color: 0xffff2d } );
@@ -87,15 +88,13 @@ function addSun() {
 
   addSunShine( radius );
 
-
-  var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3());
+  var p = new planet(mass, new THREE.Vector3(), new THREE.Vector3(), model, addLine(new THREE.Vector3(), 0xffff2d));
   system.push(p);
   scene.add(model);
 
 
   console.log('Sun ' + system.length + ' created');
 }
-
 
 function addSunShine( radiusSun ) {
 
@@ -167,4 +166,41 @@ function lensFlareUpdateCallback( object ) {
     flare.rotation = 0;
   }
 }
-	
+
+function updateLine( n, c ) {
+
+  var verticesLine = system[n].line.geometry.vertices;
+  verticesLine.push( system[n].position );
+
+  var materialLine = new THREE.LineBasicMaterial({
+    color: c
+  });
+
+  var geometryLine = new THREE.Geometry();
+  geometryLine.vertices = verticesLine;
+
+  scene.remove(system[n].line);
+
+  system[n].line = new THREE.Line( geometryLine, materialLine );
+
+  scene.add( system[n].line );
+
+  //lines[n-1].geometry.verticesNeedUpdate = true;
+}
+
+function addLine( s, c ) {
+
+  var material = new THREE.LineBasicMaterial({
+    color: c
+  });
+
+  var geometry = new THREE.Geometry();
+  geometry.vertices.push(
+  	s
+  );
+
+  var line = new THREE.Line( geometry, material );
+  scene.add( line );
+
+  return line;
+}
