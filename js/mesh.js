@@ -124,3 +124,47 @@ function sunShinePulse( radiusSun ) {
   sunShine.rotateZ(0.003);
 }
 
+//	This function retuns a lesnflare THREE object to be scene.add(addLensFlare(x,y,z, size, overrideImage))ed to the scene graph
+function addLensFlare(x,y,z, size){
+  var flareColor = new THREE.Color( 0xffffff );
+
+  var textureLoader = new THREE.TextureLoader();
+  var overrideImage = textureLoader.load( "../img/gfxcave_lensflares/lensflare_07_gfxcave.jpg" );
+  var textureFlare1 = textureLoader.load("lensflare_sparkle.jpg") //lägg till texture 
+  lensFlare = new THREE.LensFlare( overrideImage, 700, 0.0, THREE.AdditiveBlending, flareColor );
+
+  //	we're going to be using multiple sub-lens-flare artifacts, each with a different size
+  lensFlare.add( textureFlare1, 4096, 0.0, THREE.AdditiveBlending );
+  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+
+  //	and run each through a function below
+  lensFlare.customUpdateCallback = lensFlareUpdateCallback;
+
+  lensFlare.position = new THREE.Vector3(x,y,z);
+  lensFlare.size = size ? size : 16000 ;
+  return lensFlare;
+}
+
+//	this function will operate over each lensflare artifact, moving them around the screen
+function lensFlareUpdateCallback( object ) {
+  var f, fl = this.lensFlares.length;
+  var flare;
+  var vecX = -this.positionScreen.x * 2;
+  var vecY = -this.positionScreen.y * 2;
+  var size = object.size ? object.size : 16000;
+
+  var camDistance = camera.position.length();
+
+  for( f = 0; f < fl; f ++ ) {
+    flare = this.lensFlares[ f ];
+
+    flare.x = this.positionScreen.x + vecX * flare.distance;
+    flare.y = this.positionScreen.y + vecY * flare.distance;
+
+    flare.scale = size / camDistance;
+    flare.rotation = 0;
+  }
+}
+	
