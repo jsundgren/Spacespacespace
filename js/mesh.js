@@ -3,7 +3,7 @@ function addPlanet() {
 
   var radius = THREE.Math.randFloat( 3, 10 );
   var irregularity = 1;
-  var color = Math.random() * 0xffffff;
+  //var color = Math.random() * 0xffffff;
   var mass = THREE.Math.randFloat( 3, 10 );
 
   var spread = 30;
@@ -98,7 +98,7 @@ function addSun() {
 
 function addSunShine( radiusSun ) {
 
-  var radius = radiusSun + 6;
+  var radius = radiusSun + 2;
   var transparency = 0.1;
   var irregularity = 10;
 

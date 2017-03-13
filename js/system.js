@@ -81,7 +81,7 @@ function updatePositions() {
     system[i].position = euler(system[i].position, system[i].velocity);
 
     system[i].model.position.copy( system[i].position );
-    updateLine(i);
+    updateLine(i, system[i].model.material.color);
   }
 
   var posLight = new THREE.Vector3().copy( system[0].position );
