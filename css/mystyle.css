@@ -4,24 +4,10 @@
 }
 
 #topbar {
-  //position        : fixed;
+  position        : fixed;
   top             : 50;
   left            : 0;
   padding         : 20px;
-
   color           : #a7c4d3;
   background-color: black;
 }
-
-#info {
-  z-index: 1;
-  position: absolute;
-  color: ghostwhite;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
-
-li {
-  padding: 5px;
-}
-
-

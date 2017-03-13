@@ -1,5 +1,5 @@
 function [ com ] = COM( s )
-% Calculate the center of the mass
+% The center of the mass is 
 
 T = 0;
 N = 0;
