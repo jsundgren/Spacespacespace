@@ -4,6 +4,7 @@ Hade varit gött men behövs inte:
 - Lägga till fin fog
 - Lägga till fin musik
 - Mer space
+- Mindre space
 
 Hade också varit gött men behövs inte och mycket jobb:
 - GUI med info o knappar o sånt
