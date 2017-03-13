@@ -73,7 +73,7 @@ function addSun() {
 
   var radius = 20;
   var irregularity = 1;
-  var mass = 180;
+  var mass = 1000;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
   var material = new THREE.MeshPhongMaterial( { color: 0xffff2d } );
@@ -98,9 +98,9 @@ function addSun() {
 
 function addSunShine( radiusSun ) {
 
-  var radius = radiusSun + 2;
+  var radius = radiusSun + 4;
   var transparency = 0.1;
-  var irregularity = 10;
+  var irregularity = 8;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 3 );
   var material = new THREE.MeshBasicMaterial( { color: 0xff772d, transparent: true, opacity: transparency, side: THREE.DoubleSide} );	//0xea812a tyckte jag blev för brun
@@ -129,9 +129,9 @@ function addLensFlare(x,y,z, size){
 
   var textureLoader = new THREE.TextureLoader();
   var overrideImage = textureLoader.load("../img/gfxcave_lensflares/lensflare_07_gfxcave.jpg" );
-  var textureFlare1 = textureLoader.load("../img/gfxcave_lensflares/lensflare_sparkle.jpg"); //lägg till texture 
-  var textureFlare2 = textureLoader.load("../img/gfxcave_lensflares/lensflare_10_gfxcave.jpg"); //lägg till texture 
-  
+  var textureFlare1 = textureLoader.load("../img/gfxcave_lensflares/lensflare_sparkle.jpg"); //lägg till texture
+  var textureFlare2 = textureLoader.load("../img/gfxcave_lensflares/lensflare_10_gfxcave.jpg"); //lägg till texture
+
   var lensFlare = new THREE.LensFlare( overrideImage, 700, 0.0, THREE.AdditiveBlending, flareColor );
 
   //	we're going to be using multiple sub-lens-flare artifacts, each with a different size
@@ -172,12 +172,19 @@ function updateLine( n, c ) {
     var verticesLine = system[n].line.geometry.vertices;
     verticesLine.push( system[n].position );
 
-    var materialLine = new THREE.LineBasicMaterial({
-      color: c
-    });
 
-    var geometryLine = new THREE.Geometry();
-    geometryLine.vertices = verticesLine;
+  if ( verticesLine.length > 150 ) {
+
+    verticesLine.shift();
+  }
+
+  var materialLine = new THREE.LineBasicMaterial({
+    color: c, transparent: true, opacity: 0.5
+  });
+
+  var geometryLine = new THREE.Geometry();
+  geometryLine.vertices = verticesLine;
+
 
     scene.remove(system[n].line);
 

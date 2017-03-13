@@ -1,8 +1,8 @@
 var system = [];
 var lines = [];
-var MoveToCenter = true;
+var MoveToCenter = false;
 var G = 6.674*10^11;
-var counter = 0;
+var currTime = 0;
 
 function calcForce(planet1, planet2) {
 
@@ -82,9 +82,15 @@ function updatePositions() {
     system[i].velocity = euler(system[i].velocity, forceFunc);
     system[i].position = euler(system[i].position, system[i].velocity);
 
-    system[i].model.position.copy(system[i].position);
 
+    system[i].model.position.copy( system[i].position );
+
+    if ( currTime % 8 == 0 ) {
+      updateLine(i, system[i].model.material.color);
+    }
   }
+
+  currTime++;
 
   var posLight = new THREE.Vector3().copy( system[0].position );
   var tmp = new THREE.Vector3().subVectors( camera.position, posLight );
@@ -98,20 +104,20 @@ function updatePositions() {
 
 function CenterOfMass() {
 
-    var com = new THREE.Vector3();
-    var tmp = new THREE.Vector3();
-    var totMass = 0;
+  var com = new THREE.Vector3();
+  var tmp = new THREE.Vector3();
+  var totMass = 0;
 
-    for (var i = 0; i < system.length; i++) {
+  for (var i = 0; i < system.length; i++) {
 
-      tmp.copy(system[i].position);
-      com.add(tmp.multiplyScalar(system[i].mass));
-      totMass += system[i].mass;
-    }
+    tmp.copy(system[i].position);
+    com.add(tmp.multiplyScalar(system[i].mass));
+    totMass += system[i].mass;
+  }
 
-    com.divideScalar(totMass);
+  com.divideScalar(totMass);
 
-    return com;
+  return com;
 }
 
 // KOLLA IN DENNA SÅ DEN BLIR RÄTT
@@ -133,34 +139,37 @@ function initialVelocity( mass, planetPosition ) {
   return startVelocity;
 }
 
-function removePlanet(n) {
-
-}
-
 function CentralizeToggle(){
 
-  console.log('Centralize: ' + !MoveToCenter);
+  console.log('Centralize');
 
-  if (MoveToCenter) {
-    MoveToCenter = false;
-
-  } else {
+  if (!MoveToCenter) {
     MoveToCenter = true;
-  }
 
+    setTimeout(function() {
+      MoveToCenter = false;
+
+      for (var i = 0; i < system.length; i++) {
+        system[i].line.geometry.vertices.reverse();
+        system[i].line.geometry.vertices.length = 1;
+      }
+
+      console.log('Decentralize');
+    }, 1000);
+  }
 }
 
 function getColor() {
-    var white = THREE.Math.randInt(0, 2);
+  var white = THREE.Math.randInt(0, 2);
 
-    var red = Math.floor(THREE.Math.randFloat(0, 255));
-    var green = Math.floor(THREE.Math.randFloat(0, 255));
-    var blue  = Math.floor(THREE.Math.randFloat(0, 255));
+  var red = Math.floor(THREE.Math.randFloat(0, 255));
+  var green = Math.floor(THREE.Math.randFloat(0, 255));
+  var blue  = Math.floor(THREE.Math.randFloat(0, 255));
 
-    var colors = [red, green, blue];
-    colors[white] = 255;
+  var colors = [red, green, blue];
+  colors[white] = 255;
 
-    var col = new THREE.Color("rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")");
+  var col = new THREE.Color("rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")");
 
-    return col;
+  return col;
 }

@@ -48,7 +48,7 @@ function init() {
 	// STATS
 	stats = new Stats();
 	document.getElementById("topbar").appendChild( stats.dom );
-	stats.domElement.style.position = 'absolute';
+	//stats.domElement.style.position = 'absolute';
 	stats.domElement.style.left = '20px';
 	stats.domElement.style.top = '10px';
 
