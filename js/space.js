@@ -82,6 +82,7 @@ function animate () {
 	sunShinePulse();
 	updateForces();
 	updatePositions();
+	addLensFlare();
 
 
 	stats.begin();

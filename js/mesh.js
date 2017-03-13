@@ -124,26 +124,26 @@ function sunShinePulse( radiusSun ) {
 }
 
 //	This function retuns a lesnflare THREE object to be scene.add()ed to the scene graph
-function addLensFlare(x,y,z, size){
+function addLensFlare(){
   var flareColor = new THREE.Color( 0xffffff );
 
   var textureLoader = new THREE.TextureLoader();
-  var overrideImage = textureLoader.load("../img/gfxcave_lensflares/lensflare_07_gfxcave.jpg" );
-  var textureFlare1 = textureLoader.load("../img/gfxcave_lensflares/lensflare_sparkle.jpg"); //lägg till texture 
-  var textureFlare2 = textureLoader.load("../img/gfxcave_lensflares/lensflare_10_gfxcave.jpg"); //lägg till texture 
+  var overrideImage = textureLoader.load("http://www.freeiconspng.com/uploads/lens-flares-png-jpeg-54-lens-flares-36-30.png" );
+  //var textureFlare1 = textureLoader.load("../img/gfxcave_lensflares/lensflare_10_gfxcave.jpg"); //lägg till annan texture 
+  //var textureFlare2 = textureLoader.load("../img/gfxcave_lensflares/lensflare_10_gfxcave.jpg"); //lägg till annan texture 
   
   var lensFlare = new THREE.LensFlare( overrideImage, 700, 0.0, THREE.AdditiveBlending, flareColor );
 
   //	we're going to be using multiple sub-lens-flare artifacts, each with a different size
-  lensFlare.add( textureFlare1, 4096, 0.0, THREE.AdditiveBlending );
-  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+  //lensFlare.add( textureFlare1, 4096, 0.0, THREE.AdditiveBlending, flareColor);
+  //lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending, flareColor);
+  //lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending, flareColor);
+  //lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending, flareColor);
 
   //	and run each through a function below
   lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-  lensFlare.position.copy( light.position );
-  lensFlare.size = size ? size : 16000 ;
+  lensFlare.position.copy( system[0].position );
+  lensFlare.size = 16000 ;
   scene.add(lensFlare);
 }
 
