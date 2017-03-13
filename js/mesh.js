@@ -169,22 +169,21 @@ function lensFlareUpdateCallback( object ) {
 }
 
 function updateLine( n, c ) {
+    var verticesLine = system[n].line.geometry.vertices;
+    verticesLine.push( system[n].position );
 
-  var verticesLine = system[n].line.geometry.vertices;
-  verticesLine.push( system[n].position );
+    var materialLine = new THREE.LineBasicMaterial({
+      color: c
+    });
 
-  var materialLine = new THREE.LineBasicMaterial({
-    color: c
-  });
+    var geometryLine = new THREE.Geometry();
+    geometryLine.vertices = verticesLine;
 
-  var geometryLine = new THREE.Geometry();
-  geometryLine.vertices = verticesLine;
+    scene.remove(system[n].line);
 
-  scene.remove(system[n].line);
+    system[n].line = new THREE.Line( geometryLine, materialLine );
 
-  system[n].line = new THREE.Line( geometryLine, materialLine );
-
-  scene.add( system[n].line );
+    scene.add( system[n].line );
 
   //lines[n-1].geometry.verticesNeedUpdate = true;
 }
