@@ -1,4 +1,5 @@
 var system = [];
+var lines = [];
 var MoveToCenter = true;
 var G = 6.674*10^11;
 
@@ -67,7 +68,7 @@ function updatePositions() {
     for(var i = 0; i < system.length; i++) {
 
       system[i].position.add(tmp);
-      scene.children[i+5].position.copy( system[i].position );
+      system[i].model.position.copy( system[i].position );
     }
   }
 
@@ -79,7 +80,8 @@ function updatePositions() {
     system[i].velocity = euler(system[i].velocity, forceFunc);
     system[i].position = euler(system[i].position, system[i].velocity);
 
-    scene.children[i+5].position.copy( system[i].position );
+    system[i].model.position.copy( system[i].position );
+    updateLine(i, system[i].model.material.color);
   }
 
   var posLight = new THREE.Vector3().copy( system[0].position );
