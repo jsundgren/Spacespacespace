@@ -1,17 +1,10 @@
 var renderer, scene, camera, sunLightOut, sunLightIn, sunShine, controls, stats;
 var mouseX = 0, mouseY = 0;
 var stepLength = 0.1;
+var pauseToggle = true;
 
 init();
 animate();
-
-/*
-scene.children[n]
-0: något
-1: något
-2: bakgrunden
-3: solen
-*/
 
 function init() {
 
@@ -35,7 +28,6 @@ function init() {
 	sunLightIn = new THREE.PointLight(0xffffff, 1, 1000, 1);
 	sunLightIn.position.set(0,0,0);
 	scene.add(sunLightIn);
-
 
 	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -61,7 +53,6 @@ function init() {
 	// BACKGROUND
 	var spacesphereGeo = new THREE.SphereGeometry(controls.maxDistance*2, 32, 32);
 	var spacesphereMat = new THREE.MeshPhongMaterial();
-	// ÄNDRA TILL NYARE FUNKTION: TEXTURELOADER()
 	var spacetex = THREE.ImageUtils.loadTexture('img/space.png');
 	spacetex.wrapS = THREE.RepeatWrapping;
 	spacetex.wrapT = THREE.RepeatWrapping;
@@ -69,7 +60,6 @@ function init() {
 	spacesphereMat.side = THREE.BackSide;
 	var spacesphere = new THREE.Mesh(spacesphereGeo,spacesphereMat);
 	scene.add(spacesphere);
-
 
 	addSun();
 }
@@ -79,10 +69,12 @@ function animate () {
 
 	requestAnimationFrame( animate );
 
-	sunShinePulse();
-	updateForces();
-	updatePositions();
+	if( pauseToggle ) {
 
+		sunShinePulse();
+		updateForces();
+		updatePositions();
+	}
 
 	stats.begin();
 	renderer.render( scene, camera );

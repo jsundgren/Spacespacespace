@@ -1,16 +1,8 @@
-﻿
-Måste fungera:
-- Få planetarna att röra på sig fint
-
-Hade varit gött men behövs inte:
+﻿Hade varit gött men behövs inte:
 - Om en planet flyger för långt bort -> ta bort den
-- Sätta en fin gräns för hur många planeter de kan finnas i systemet
-- Få solen fin
-- Lägga till en fin bakgrund
+- Få solen finare
 - Lägga till fin fog
 - Lägga till fin musik
-- Center of mass-grejen
-- Streck bakom planeterna
 
 Hade också varit gött men behövs inte och mycket jobb:
 - GUI med info o knappar o sånt

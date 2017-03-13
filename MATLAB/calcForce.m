@@ -1,6 +1,5 @@
 function [ f ] = calcForce( p1, p2 )
-% planet2s påverkan på planet1
-%
+% planet2's effect on planet1
 
 G = 6.674 * 10^-11;
 

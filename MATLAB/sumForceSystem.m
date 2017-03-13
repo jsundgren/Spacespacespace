@@ -1,6 +1,6 @@
 function [ out ] = sumForceSystem( in )
-% planets total force
-%
+% calculate the new forces in the system
+
 tic; 
 
 out = in;

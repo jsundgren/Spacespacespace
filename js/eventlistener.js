@@ -1,3 +1,5 @@
+var maxPlanets = 10;
+
 // FOLLOW THE WINDOW SIZE
 function onWindowResize() {
 
@@ -6,21 +8,13 @@ function onWindowResize() {
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-// MOUSE POS TRACKER
-function onDocumentMouseMove( event ) {
-
-  event.preventDefault();
-  mouseX = ( event.clientX / window.innerWidth ) * 2 - 1;
-  mouseY = - ( event.clientY / window.innerHeight ) * 2 + 1;
-}
-
 // PRESSING SPACE BAR
 function onDocumentKeyDown( event ) {
 
-  // Blackspace
+  // Blank space
   if ( event.keyCode == 32 ) {
 
-    if(system.length+1 > 10){
+    if(system.length+1 > maxPlanets){
       console.log('No planet added');
       return;
     }
@@ -30,4 +24,24 @@ function onDocumentKeyDown( event ) {
   else if ( event.keyCode == 81 ){
     CentralizeToggle();
   }
+  // P
+  else if ( event.keyCode == 80 ){
+    pause();
+  }
+  // H
+  else if ( event.keyCode == 72 ){
+    hideShow();
+  }
+  // :p
+else if ( event.keyCode == 83 ){
+    maxPlanets = 10000000000000000;
+  }
+}
+
+// MOUSE POS TRACKER
+function onDocumentMouseMove( event ) {
+
+  event.preventDefault();
+  mouseX = ( event.clientX / window.innerWidth ) * 2 - 1;
+  mouseY = - ( event.clientY / window.innerHeight ) * 2 + 1;
 }

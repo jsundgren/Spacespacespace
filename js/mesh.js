@@ -3,11 +3,7 @@ function addPlanet() {
 
   var radius = THREE.Math.randFloat( 3, 10 );
   var irregularity = 1;
-  //var color = Math.random() * 0xffffff;
   var mass = THREE.Math.randFloat( 3, 10 );
-
-  var spread = 30;
-  var range = 1;
 
   var startPosition = new THREE.Vector3().copy( camera.position );
   var tmp = new THREE.Vector3().copy(startPosition);
@@ -16,16 +12,11 @@ function addPlanet() {
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
 
-  // ÄNDRA TILL PASTELL-FÄRGSKALA
-    /*for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
-    geometry.faces[i].color.setHex( color );
-  }*/
+  var color = getColor();
 
-    var color = getColor();
-
-    for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
-        geometry.faces[i].color = color;
-    }
+  for ( var i = 0; i < geometry.faces.length; i = i + 3 ) {
+    geometry.faces[i].color = color;
+  }
 
   var material = new THREE.MeshPhongMaterial( { color: color, vertexColors: THREE.VertexColors } );
   material.shading = THREE.FlatShading;
@@ -49,7 +40,7 @@ function addPlanet() {
   console.log('Planet ' + system.length + ' created');
 }
 
-// CREATES A RING (MINSKA ANTALET RINGAR?)
+// CREATES A RING
 function createRing( radiusPlanet ){
 
   var radiusRing = radiusPlanet + THREE.Math.randFloat(8, 12);
@@ -61,7 +52,7 @@ function createRing( radiusPlanet ){
   var materialRing = new THREE.MeshPhongMaterial({color: colorRing});
   var ring = new THREE.Mesh( geometryRing, materialRing );
   ring.scale.set(1,1,0.2);
-  ring.rotateX(3.14/2.3) + THREE.Math.randFloatSpread(1);
+  ring.rotateX(3.14/2.3);
   ring.rotateY( THREE.Math.randFloatSpread(1) );
   ring.rotateZ( THREE.Math.randFloatSpread(1) );
 
@@ -92,7 +83,6 @@ function addSun() {
   system.push(p);
   scene.add(model);
 
-
   console.log('Sun ' + system.length + ' created');
 }
 
@@ -101,7 +91,6 @@ function addSunShine( radiusSun ) {
   var radius = radiusSun + 4;
   var transparency = 0.1;
   var irregularity = 8;
-
   var geometry = new THREE.IcosahedronGeometry( radius, 3 );
   var material = new THREE.MeshBasicMaterial( { color: 0xff772d, transparent: true, opacity: transparency, side: THREE.DoubleSide} );	//0xea812a tyckte jag blev för brun
 
@@ -116,89 +105,43 @@ function addSunShine( radiusSun ) {
   scene.add(sunShine);
 }
 
-function sunShinePulse( radiusSun ) {
+function sunShinePulse() {
 
   sunShine.rotateX(0.003);
   sunShine.rotateY(0.003);
   sunShine.rotateZ(0.003);
 }
 
-//	This function retuns a lesnflare THREE object to be scene.add()ed to the scene graph
-function addLensFlare(x,y,z, size){
-  var flareColor = new THREE.Color( 0xffffff );
-
-  var textureLoader = new THREE.TextureLoader();
-  var overrideImage = textureLoader.load("../img/gfxcave_lensflares/lensflare_07_gfxcave.jpg" );
-  var textureFlare1 = textureLoader.load("../img/gfxcave_lensflares/lensflare_sparkle.jpg"); //lägg till texture
-  var textureFlare2 = textureLoader.load("../img/gfxcave_lensflares/lensflare_10_gfxcave.jpg"); //lägg till texture
-
-  var lensFlare = new THREE.LensFlare( overrideImage, 700, 0.0, THREE.AdditiveBlending, flareColor );
-
-  //	we're going to be using multiple sub-lens-flare artifacts, each with a different size
-  lensFlare.add( textureFlare1, 4096, 0.0, THREE.AdditiveBlending );
-  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-  lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-
-  //	and run each through a function below
-  lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-  lensFlare.position.copy( light.position );
-  lensFlare.size = size ? size : 16000 ;
-  scene.add(lensFlare);
-}
-
-//	this function will operate over each lensflare artifact, moving them around the screen
-function lensFlareUpdateCallback( object ) {
-  var f, fl = this.lensFlares.length;
-  var flare;
-  var vecX = -this.positionScreen.x * 2;
-  var vecY = -this.positionScreen.y * 2;
-  var size = object.size ? object.size : 16000;
-
-  var camDistance = camera.position.length();
-
-  for( f = 0; f < fl; f ++ ) {
-    flare = this.lensFlares[ f ];
-
-    flare.x = this.positionScreen.x + vecX * flare.distance;
-    flare.y = this.positionScreen.y + vecY * flare.distance;
-
-    flare.scale = size / camDistance;
-    flare.rotation = 0;
-  }
-}
-
 function updateLine( n, c ) {
-    var verticesLine = system[n].line.geometry.vertices;
-    verticesLine.push( system[n].position );
 
+  var verticesLine = system[n].line.geometry.vertices;
+  verticesLine.push( system[n].position );
 
-  if ( verticesLine.length > 150 ) {
-
+  if( verticesLine.length > 150 ) {
     verticesLine.shift();
   }
 
+  var opacityYesorNo = 0.5;
+  if(!hideShowToggle){
+    opacityYesorNo = 0;
+  }
+
   var materialLine = new THREE.LineBasicMaterial({
-    color: c, transparent: true, opacity: 0.5
+    color: c, transparent: true, opacity: opacityYesorNo
   });
 
   var geometryLine = new THREE.Geometry();
   geometryLine.vertices = verticesLine;
 
-
-    scene.remove(system[n].line);
-
-    system[n].line = new THREE.Line( geometryLine, materialLine );
-
-    scene.add( system[n].line );
-
-  //lines[n-1].geometry.verticesNeedUpdate = true;
+  scene.remove(system[n].line);
+  system[n].line = new THREE.Line( geometryLine, materialLine );
+  scene.add( system[n].line );
 }
 
 function addLine( s, c ) {
 
   var material = new THREE.LineBasicMaterial({
-    color: c
+    color: c, transparent: true, opacity: 0.5
   });
 
   var geometry = new THREE.Geometry();
