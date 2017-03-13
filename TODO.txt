@@ -1,8 +1,9 @@
-﻿Hade varit gött men behövs inte:
+Hade varit gött men behövs inte:
 - Om en planet flyger för långt bort -> ta bort den
 - Få solen finare
 - Lägga till fin fog
 - Lägga till fin musik
+- Mer space
 
 Hade också varit gött men behövs inte och mycket jobb:
 - GUI med info o knappar o sånt
