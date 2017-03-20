@@ -25,7 +25,7 @@ function addPlanet() {
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
     model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ),
-      THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
+    THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
   }
 
   if ( Math.random() < 0.2 ) {
@@ -64,7 +64,7 @@ function addSun() {
 
   var radius = 20;
   var irregularity = 1;
-  var mass = 1000;
+  var mass = 500;
 
   var geometry = new THREE.IcosahedronGeometry( radius, 1 );
   var material = new THREE.MeshPhongMaterial( { color: 0xffff2d } );
@@ -74,7 +74,7 @@ function addSun() {
 
   for( i = 0; i < model.geometry.vertices.length; i = i + 3 ) {
     model.geometry.vertices[i].add( new THREE.Vector3(THREE.Math.randFloatSpread( irregularity ),
-      THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
+    THREE.Math.randFloatSpread( irregularity ),THREE.Math.randFloatSpread( irregularity )));
   }
 
   addSunShine( radius );
@@ -117,7 +117,9 @@ function updateLine( n, c ) {
   var verticesLine = system[n].line.geometry.vertices;
   verticesLine.push( system[n].position );
 
-  if( verticesLine.length > 150 ) {
+  var length = system[n].position.distanceTo(new THREE.Vector3());
+
+  if( verticesLine.length > length/1.8 ) {
     verticesLine.shift();
   }
 
@@ -146,11 +148,23 @@ function addLine( s, c ) {
 
   var geometry = new THREE.Geometry();
   geometry.vertices.push(
-  	s
+    s
   );
 
   var line = new THREE.Line( geometry, material );
   scene.add( line );
 
   return line;
+}
+
+function getColor() {
+
+  var white = THREE.Math.randInt(0, 2);
+  var red = Math.floor(THREE.Math.randFloat(0, 255));
+  var green = Math.floor(THREE.Math.randFloat(0, 255));
+  var blue  = Math.floor(THREE.Math.randFloat(0, 255));
+  var colors = [red, green, blue];
+  colors[white] = 255;
+
+  return new THREE.Color("rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")");
 }

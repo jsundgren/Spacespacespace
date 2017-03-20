@@ -1,6 +1,6 @@
-var renderer, scene, camera, sunLightOut, sunLightIn, sunShine, controls, stats;
+var renderer, scene, camera, sunLightOut, sunLightIn, backgroundLight, sunShine, controls, stats;
 var mouseX = 0, mouseY = 0;
-var stepLength = 0.1;
+var stepLength = 0.2;
 var pauseToggle = true;
 
 init();
@@ -23,11 +23,14 @@ function init() {
 	sunLightOut = new THREE.PointLight(0xffffff, 1, 2000, 2);
 	sunLightOut.position.set(0,0,0);
 	scene.add(sunLightOut);
-	ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
-	scene.add(ambientLight);
 	sunLightIn = new THREE.PointLight(0xffffff, 1, 1000, 1);
 	sunLightIn.position.set(0,0,0);
 	scene.add(sunLightIn);
+	backgroundLight = new THREE.PointLight(0xffffff, 0.75, 1500, 2);
+	backgroundLight.position.set(0,0,0);
+	scene.add(backgroundLight);
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+	scene.add(ambientLight);
 
 	// CAMERA CONTROLS
 	controls = new THREE.OrbitControls(camera, renderer.domElement);

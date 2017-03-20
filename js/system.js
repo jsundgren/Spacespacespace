@@ -1,5 +1,4 @@
 var system = [];
-var MoveToCenter = false;
 var G = 6.674*10^11;
 var currTime = 0;
 var hideShowToggle = true;
@@ -53,20 +52,8 @@ function euler(input, func) {
 
 function updatePositions() {
 
-  if ( MoveToCenter ) {
-
-    var forandring = 0.5;
-    var vecForandring = new THREE.Vector3( forandring, forandring, forandring );
-    var tmp = new THREE.Vector3();
-
-    tmp.multiplyVectors( CenterOfMass(), vecForandring ).negate();
-
-    for(var i = 0; i < system.length; i++) {
-      system[i].position.add(tmp);
-      system[i].model.position.copy( system[i].position );
-    }
-  }
-
+  var center = new THREE.Vector3().copy(system[0].position);
+  center.negate();
 
   for(var i = 0; i < system.length; i++) {
 
@@ -75,8 +62,12 @@ function updatePositions() {
 
     system[i].velocity = euler(system[i].velocity, forceFunc);
     system[i].position = euler(system[i].position, system[i].velocity);
+    system[i].position.add( center );
     system[i].model.position.copy( system[i].position );
 
+    if (i != 0 && (system[i].position.distanceTo(new THREE.Vector3()) > 2000 || system[i].position.distanceTo(new THREE.Vector3()) < 26.5)) {
+      remove(i);
+    }
     if ( currTime % 8 == 0 ) {
       updateLine(i, system[i].model.material.color);
     }
@@ -85,11 +76,16 @@ function updatePositions() {
   currTime++;
 
   var posLight = new THREE.Vector3().copy( system[0].position );
-  tmp = new THREE.Vector3().subVectors( camera.position, posLight );
-  tmp.normalize().multiplyScalar(40);
+  tmp = new THREE.Vector3().copy( camera.position );
+  tmp.normalize().multiplyScalar(50);
   posLight.add(tmp);
-
   sunLightIn.position.copy( posLight );
+
+  tmp = new THREE.Vector3().copy( camera.position );
+  tmp.negate().normalize().multiplyScalar(1800);
+  posLight.add(tmp);
+  backgroundLight.position.copy( posLight );
+
   sunLightOut.position.copy( system[0].position );
   sunShine.position.copy( system[0].position );
 }
@@ -128,58 +124,6 @@ function initialVelocity( mass, planetPosition ) {
   return startVelocity;
 }
 
-function CentralizeToggle(){
-
-  if (!MoveToCenter) {
-    MoveToCenter = true;
-
-    setTimeout(function() {
-      MoveToCenter = false;
-
-      for (var i = 0; i < system.length; i++) {
-        system[i].line.geometry.vertices.reverse();
-        system[i].line.geometry.vertices.length = 1;
-      }
-    }, 1000);
-  }
-}
-
-function getColor() {
-
-  var white = THREE.Math.randInt(0, 2);
-  var red = Math.floor(THREE.Math.randFloat(0, 255));
-  var green = Math.floor(THREE.Math.randFloat(0, 255));
-  var blue  = Math.floor(THREE.Math.randFloat(0, 255));
-  var colors = [red, green, blue];
-  colors[white] = 255;
-
-  return new THREE.Color("rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")");
-}
-
-function pause(){
-
-  if (!pauseToggle) {
-    pauseToggle = true;
-  }
-  else {
-    pauseToggle = false;
-  }
-}
-
-function hideShow() {
-
-  if (hideShowToggle) {
-    console.log("false");
-    for (var i = 0; i > system.length; i++){
-      system[i].line.material.opacity = 0;
-    }
-    hideShowToggle = false;
-  }
-  else {
-    console.log("true");
-    for (var i = 0; i > system.length; i++){
-      system[i].line.material.opacity = 0.5;
-    }
-    hideShowToggle = true;
-  }
+function collision() {
+  // Snart står de saker här kanske
 }
